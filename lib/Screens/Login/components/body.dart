@@ -1,4 +1,4 @@
-import 'package:blue_car/drawerScreen.dart';
+import 'package:blue_car/Screens/Home/drawerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/Screens/Login/components/background.dart';
 import 'package:blue_car/Screens/Signup/signup_screen.dart';
@@ -8,7 +8,7 @@ import 'package:blue_car/components/rounded_input_field.dart';
 import 'package:blue_car/components/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../homeScreen.dart';
+import '../../Home/homeScreen.dart';
 
 class Body extends StatelessWidget {
   const Body({

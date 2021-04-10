@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
-import 'package:blue_car/screen2.dart';
+import 'package:blue_car/Screens/Anuncio/anuncio.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.search),
-                  Text('Search pet to adopt'),
+                  Text('Busca tu futuro coche...'),
                   Icon(Icons.settings)
 
                 ],
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Screen2()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Anuncio()));
 
               },
               child: Container(

@@ -10,7 +10,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: primaryGreen,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              lightBlueGrad,
+              darkBlueGrad,
+            ],
+          )
+      ),
       padding: EdgeInsets.only(top:50,bottom: 70,left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -18,12 +27,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
           Row(
             children: [
               CircleAvatar(),
+
               SizedBox(width: 10,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Miroslava Savitskaya',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-                  Text('Active Status',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold))
+                  Text('Jonny Sins',style: TextStyle(color: Colors.white),),
+                  Text('Active Status',style: TextStyle(color: Colors.white))
                 ],
               )
             ],

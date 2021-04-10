@@ -1,8 +1,8 @@
 import 'package:blue_car/Screens/Welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'drawerScreen.dart';
-import 'homeScreen.dart';
+import 'Screens/Home/drawerScreen.dart';
+import 'Screens/Home/homeScreen.dart';
 void main(){
   runApp(MaterialApp(home: HomePage(),
     theme: ThemeData(

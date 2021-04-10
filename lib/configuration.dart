@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Color primaryGreen = Color(0xff416d6d);
+Color lightBlueGrad = HexColor("#0bbafb");
+Color darkBlueGrad = HexColor("#4285ec");
 List<BoxShadow> shadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
 ];
@@ -40,3 +42,16 @@ List<Map> drawerItems=[
     'title' : 'Profile'
   },
 ];
+
+
+class HexColor extends Color {
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
+  }
+
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+}

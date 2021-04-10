@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
 
-class Screen2 extends StatelessWidget {
+class Anuncio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,30 +63,29 @@ class Screen2 extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
               padding: EdgeInsets.symmetric(horizontal: 15),
               height: 120,
-child: Row(
-  children: [
-    Container(
-      height: 60,
-      width: 70,
-      decoration: BoxDecoration(
-          color: primaryGreen,
+              child: Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 70,
+                    decoration: BoxDecoration(
+                        color: primaryGreen,
 
-          borderRadius: BorderRadius.circular(20)),
-      child: Icon(Icons.favorite_border,color: Colors.white,),
-    ),
-    SizedBox(width: 10,),
-    Expanded(
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(color: primaryGreen,borderRadius: BorderRadius.circular(20)),
-        child: Center(child: Text('Adoption',style: TextStyle(color: Colors.white,fontSize: 24),)),
-      ),
-    )
-  ],
-)
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Icon(Icons.favorite_border,color: Colors.white,),
+                  ),
+                  SizedBox(width: 10,),
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(color: primaryGreen,borderRadius: BorderRadius.circular(20)),
+                      child: Center(child: Text('Chat',style: TextStyle(color: Colors.white,fontSize: 18),)),
+                    ),
+                  )
+                ],
+              )
               ,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
