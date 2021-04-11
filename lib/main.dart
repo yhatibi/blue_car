@@ -1,4 +1,5 @@
 import 'package:blue_car/Screens/Welcome/welcome_screen.dart';
+import 'package:blue_car/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/Home/drawerScreen.dart';
@@ -19,7 +20,7 @@ class HomePage extends StatelessWidget {
       body: Stack(
         children: [
           DrawerScreen(),
-          WelcomeScreen()
+          LoginPage()
 
         ],
       ),

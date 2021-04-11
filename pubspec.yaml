@@ -31,6 +31,8 @@ dependencies:
   flutter_svg: ^0.19.1
   font_awesome_flutter:
   google_fonts: ^2.0.0
+  ss_bottom_navbar: 0.1.0
+
 
 dev_dependencies:
   flutter_test:

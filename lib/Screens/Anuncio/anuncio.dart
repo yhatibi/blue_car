@@ -11,9 +11,15 @@ class Anuncio extends StatelessWidget {
               child: Column(
             children: [
               Expanded(
-                child: Container(
-                  color: Colors.blueGrey[300],
-                ),
+                child:Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/images/coche.jpg"),
+                    ),
+                  ),
+                )
               ),
               Expanded(
                 child: Container(
@@ -21,43 +27,68 @@ class Anuncio extends StatelessWidget {
                 ),
               )
             ],
+
+
           )),
           Container(
-            margin:EdgeInsets.only(top: 40),
+            margin: EdgeInsets.only(top: 40),
             child: Align(
+
               alignment: Alignment.topCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: (){
-                    Navigator.pop(context);
-                  }),
-                  IconButton(icon: Icon(Icons.share), onPressed: (){
-
-                  })
+                  IconButton(
+                      icon: Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                  IconButton(icon: Icon(Icons.share), onPressed: () {})
                 ],
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Hero(
-                  tag: 1,
-                  child: Image.asset('assets/images/pet-cat2.png')),
-            ),
-          ),
+
+
+
+
           Align(
             alignment: Alignment.center,
             child: Container(
-              height: 100,
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: shadowList,
-                  borderRadius: BorderRadius.circular(20)),
+              height: 120,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.only(left: 20),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: shadowList,
+                              borderRadius: BorderRadius.circular(10)),
+                            child: Image.asset(
+                              categories[index]['iconPath'],
+                              height: 50,
+                              width: 50,
+                              color: Colors.grey[700],
+                              ),
 
+
+                        ),
+                        Text(
+                          categories[index]['name'],
+                          style: TextStyle(color: Colors.black, fontSize: 14),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Align(
@@ -72,30 +103,38 @@ class Anuncio extends StatelessWidget {
                     width: 70,
                     decoration: BoxDecoration(
                         color: primaryGreen,
-
                         borderRadius: BorderRadius.circular(20)),
-                    child: Icon(Icons.favorite_border,color: Colors.white,),
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                    ),
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   Expanded(
                     child: Container(
                       height: 50,
-                      decoration: BoxDecoration(color: primaryGreen,borderRadius: BorderRadius.circular(20)),
-                      child: Center(child: Text('Chat',style: TextStyle(color: Colors.white,fontSize: 18),)),
+                      decoration: BoxDecoration(
+                          color: primaryGreen,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                          child: Text(
+                        'Chat',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      )),
                     ),
                   )
                 ],
-              )
-              ,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40), )
               ),
+              decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  )),
             ),
           )
-
-
-
         ],
       ),
     );

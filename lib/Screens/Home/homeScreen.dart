@@ -100,32 +100,32 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             Container(height: 120,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              itemBuilder: (context,index){
-                return Container(
-                  child: Column(
-                    children: [
-                      Container(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context,index){
+                  return Container(
+                    child: Column(
+                      children: [
+                        Container(
 
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: shadowList,
-                          borderRadius: BorderRadius.circular(10)
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.only(left: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: shadowList,
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Image.asset(categories[index]['iconPath'],       height: 50,
+                            width: 50,color: Colors.grey[700],),
                         ),
-                        child: Image.asset(categories[index]['iconPath'],       height: 50,
-                          width: 50,color: Colors.grey[700],),
-                      ),
-                      Text(categories[index]['name'])
-                    ],
-                  ),
-                );
-              },
+                        Text(categories[index]['name'])
+                      ],
+                    ),
+                  );
+                },
 
-            ),
+              ),
             ),
 
 
@@ -135,30 +135,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
               },
               child: Container(
-                height: 240,
+                height: 210,
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Expanded(
                       child: Stack(
                         children: [
+
                           Container(
-                            decoration: BoxDecoration(color: Colors.blueGrey[300],
-                            borderRadius: BorderRadius.circular(20),
-                              boxShadow: shadowList,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage("assets/images/coche.jpg"),
+                              ),
+                                boxShadow: shadowList,
+                              borderRadius: BorderRadius.circular(20),
+
                             ),
-                            margin: EdgeInsets.only(top: 50),
-                          ),
-                          Align(
-                            child: Hero(
-                                tag:1,child: Image.asset('assets/images/pet-cat2.png')),
                           )
+
 
                         ],
                       ),
                     ),
                     Expanded(child: Container(
-                      margin: EdgeInsets.only(top: 60,bottom: 20),
+                      margin: EdgeInsets.only(top: 20,bottom: 20),
                       decoration: BoxDecoration(color: Colors.white,
 
                       boxShadow: shadowList,
