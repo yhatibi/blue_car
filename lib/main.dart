@@ -1,5 +1,4 @@
-import 'package:blue_car/Screens/Welcome/welcome_screen.dart';
-import 'package:blue_car/pages/login_page.dart';
+import 'file:///C:/Users/Yasin/AndroidStudioProjects/blue_car/lib/Screens/Login/login_page.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/Home/drawerScreen.dart';

@@ -12,66 +12,100 @@ class _DrawerScreenState extends State<DrawerScreen> {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              lightBlueGrad,
-              darkBlueGrad,
-            ],
-          )
-      ),
-      padding: EdgeInsets.only(top:50,bottom: 70,left: 10),
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        colors: [
+          lightBlueGrad,
+          darkBlueGrad,
+        ],
+      )),
+      padding: EdgeInsets.only(top: 50, bottom: 70, left: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
               CircleAvatar(),
-
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Jonny Sins',style: TextStyle(color: Colors.white),),
-                  Text('Active Status',style: TextStyle(color: Colors.white))
+                  Text(
+                    'Jonny Sins',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text('jonnysins@gmail.com', style: TextStyle(color: Colors.white))
                 ],
               )
             ],
           ),
-
           Column(
-            children: drawerItems.map((element) => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(element['icon'],color: Colors.white,size: 30,),
-                  SizedBox(width: 10,),
-                  Text(element['title'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20))
-                ],
+            children: drawerItems
+                .map((element) => Padding(
+                      padding: const EdgeInsets.all(9.0),
 
-              ),
-            )).toList(),
+                      child: Row(
+                        children: [
+                          Icon(
+                            element['icon'],
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(element['title'],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18))
+                        ],
+                      ),
+                    ))
+                .toList(),
           ),
-
           Row(
             children: [
-              Icon(Icons.settings,color: Colors.white,),
-              SizedBox(width: 10,),
-              Text('Settings',style:TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-              SizedBox(width: 10,),
-              Container(width: 2,height: 20,color: Colors.white,),
-              SizedBox(width: 10,),
-              Text('Log out',style:TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
-
-
+              Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Settings',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                width: 2,
+                height: 20,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Text(
+                'Log out',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              )
             ],
-
           )
-
-
         ],
       ),
-
     );
   }
 }

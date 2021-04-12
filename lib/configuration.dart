@@ -8,39 +8,36 @@ List<BoxShadow> shadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30, offset: Offset(0, 10))
 ];
 
+
 List<Map> categories = [
-  {'name': 'Audi', 'iconPath': 'assets/images/marcasCoches/audi-logo.png'},
-  {'name': 'BMW', 'iconPath': 'assets/images/marcasCoches/bmw-logo.png'},
-  {'name': 'Ford', 'iconPath': 'assets/images/marcasCoches/ford-logo.png'},
-  {'name': 'Mercedes', 'iconPath': 'assets/images/marcasCoches/mercedes-benz-logo.png'},
-  {'name': 'Toyota', 'iconPath': 'assets/images/marcasCoches/toyota-logo.png'},
+  {'name': 'Audi', 'iconPath': 'assets/images/marcas/audi-logo.png'},
+  {'name': 'BMW', 'iconPath': 'assets/images/marcas/bmw-logo.png'},
+  {'name': 'Ford', 'iconPath': 'assets/images/marcas/ford-logo.png'},
+  {'name': 'Mercedes', 'iconPath': 'assets/images/marcas/mercedes-benz-logo.png'},
+  {'name': 'Toyota', 'iconPath': 'assets/images/marcas/toyota-logo.png'},
 
 ];
 
 List<Map> drawerItems=[
   {
-    'icon': FontAwesomeIcons.paw,
-    'title' : 'Adoption'
+    'icon': FontAwesomeIcons.home,
+    'title' : 'Inicio'
   },
   {
-    'icon': Icons.mail,
-    'title' : 'Donation'
+    'icon': Icons.settings,
+    'title' : 'Configuración'
   },
   {
     'icon': FontAwesomeIcons.plus,
-    'title' : 'Add pet'
-  },
-  {
-    'icon': Icons.favorite,
-    'title' : 'Favorites'
+    'title' : 'Crear Anuncio'
   },
   {
     'icon': Icons.mail,
-    'title' : 'Messages'
+    'title' : 'Mensajes'
   },
   {
     'icon': FontAwesomeIcons.userAlt,
-    'title' : 'Profile'
+    'title' : 'Perfil'
   },
 ];
 
