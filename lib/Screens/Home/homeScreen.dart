@@ -40,9 +40,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   right: 20.0
               ),
               child: Row(
+
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  isDrawerOpen
+                  Container(
+                  width: MediaQuery.of(context).size.width * 0.10,
+                  child: isDrawerOpen
                       ? IconButton(
                           icon: Icon(Icons.arrow_back_ios),
                           onPressed: () {
@@ -64,7 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               isDrawerOpen = true;
                             });
                           }),
+                  ),
                   Container(
+                    width: MediaQuery.of(context).size.width * 0.60,
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     decoration: BoxDecoration(
                         color: Colors.white, borderRadius: BorderRadius.circular(20)),
@@ -75,16 +80,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           width: 10,
                         ),
-                        Text('Busca tu futuro coche...', style:
-                        TextStyle(color: Colors.black54),),
+
+                        Text('Busca tu coche...', style:
+                        TextStyle(color: Colors.black54),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         SizedBox(
                           width: 10,
-                        ),
-                        Icon(Icons.settings)
+                        )
                       ],
                     ),
                   ),
-                  CircleAvatar()
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.10,
+                    child: CircleAvatar(),
+                  ),
+
                 ],
               ),
             ),

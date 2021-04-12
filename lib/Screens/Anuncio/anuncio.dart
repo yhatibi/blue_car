@@ -36,11 +36,16 @@ class Anuncio extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
+                      width: MediaQuery.of(context).size.width * 0.50,
+
                       child: Text('Peugeot 208 2021 NUEVO', style:
                               TextStyle(
                                 color: Colors.black87,
                                 fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+
 
                       ),
                     ),
@@ -49,6 +54,8 @@ class Anuncio extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Container(
+                        width: MediaQuery.of(context).size.width * 0.40,
+
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             bottomLeft: const Radius.circular(10.0),
@@ -67,9 +74,9 @@ class Anuncio extends StatelessWidget {
                         ),
                         padding: EdgeInsets.only(
                           left: 20,
-                        right: 20,
-                        top: 10,
-                        bottom: 10),
+                          right: 20,
+                          top: 10,
+                          bottom: 10),
                         child: Text(
                           "13.000 EUR",
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17 ,  color: Colors.white),

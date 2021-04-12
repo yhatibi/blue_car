@@ -12,11 +12,13 @@ class Body extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
+
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: ListView.builder(
               itemCount: demeChatMessages.length,
               itemBuilder: (context, index) =>
                   Message(message: demeChatMessages[index]),
+
             ),
           ),
         ),

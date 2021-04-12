@@ -19,13 +19,13 @@ class ChatMessage {
 
 List demeChatMessages = [
   ChatMessage(
-    text: "Hi Sajol,",
+    text: "Hola Jose,",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
-    isSender: false,
+    isSender: true,
   ),
   ChatMessage(
-    text: "Hello, How are you?",
+    text: "Me interesa el peuegot, aun lo tienes?",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
     isSender: true,
@@ -37,25 +37,19 @@ List demeChatMessages = [
     isSender: false,
   ),
   ChatMessage(
-    text: "",
-    messageType: ChatMessageType.video,
+    text: "El precio es negociable?",
+    messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
     isSender: true,
   ),
   ChatMessage(
-    text: "Error happend",
-    messageType: ChatMessageType.text,
-    messageStatus: MessageStatus.not_sent,
-    isSender: true,
-  ),
-  ChatMessage(
-    text: "This looks great man!!",
+    text: "Si el precio es negociable, quieres venir a verlo?",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.viewed,
     isSender: false,
   ),
   ChatMessage(
-    text: "Glad you like it",
+    text: "Si claro!",
     messageType: ChatMessageType.text,
     messageStatus: MessageStatus.not_view,
     isSender: true,
