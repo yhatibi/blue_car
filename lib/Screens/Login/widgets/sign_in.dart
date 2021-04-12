@@ -124,18 +124,9 @@ class _SignInState extends State<SignIn> {
                 margin: const EdgeInsets.only(top: 170.0),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.black54,
-                      offset: Offset(1.0, 4.0),
-                      blurRadius: 30.0,
-                    ),
-                  ],
+                  boxShadow: <BoxShadow>[BoxShadow(color: Colors.black54, offset: Offset(1.0, 4.0), blurRadius: 30.0,),],
                   gradient: LinearGradient(
-                      colors: <Color>[
-                        CustomTheme.loginGradientEnd,
-                        CustomTheme.loginGradientStart
-                      ],
+                      colors: <Color>[CustomTheme.loginGradientEnd, CustomTheme.loginGradientStart],
                       begin: FractionalOffset(0.2, 0.2),
                       end: FractionalOffset(1.0, 1.0),
                       stops: <double>[0.0, 1.0],
@@ -145,14 +136,10 @@ class _SignInState extends State<SignIn> {
                   highlightColor: Colors.transparent,
                   splashColor: CustomTheme.loginGradientEnd,
                   child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+                    padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
                     child: Text(
                       'LOGIN',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontFamily: 'WorkSansBold'),
+                      style: TextStyle(color: Colors.white, fontSize: 18.0, fontFamily: 'WorkSansBold'),
                     ),
                   ),
                   onPressed: () {
@@ -167,7 +154,6 @@ class _SignInState extends State<SignIn> {
                                 HomeScreen()
                               ],
                             ),
-
                           );
                         },
                       ),
@@ -181,13 +167,8 @@ class _SignInState extends State<SignIn> {
             padding: const EdgeInsets.only(top: 10.0),
             child: TextButton(
                 onPressed: () {},
-                child: const Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.white,
-                      fontSize: 15.0,
-                      fontFamily: 'WorkSansMedium'),
+                child: const Text('Forgot Password?',
+                  style: TextStyle(decoration: TextDecoration.underline, color: Colors.white, fontSize: 15.0, fontFamily: 'WorkSansMedium'),
                 )),
           ),
           Padding(
@@ -198,10 +179,7 @@ class _SignInState extends State<SignIn> {
                 Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                        colors: <Color>[
-                          Colors.white10,
-                          Colors.white,
-                        ],
+                        colors: <Color>[Colors.white10, Colors.white,],
                         begin: FractionalOffset(0.0, 0.0),
                         end: FractionalOffset(1.0, 1.0),
                         stops: <double>[0.0, 1.0],

@@ -1,10 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'Screens/Home/drawerScreen.dart';
 import 'Screens/Home/homeScreen.dart';
 import 'Screens/Login/login_page.dart';
 void main(){
-  runApp(MaterialApp(home: HomePage(),
+  runApp(MaterialApp(
+    home: HomePage(),
     theme: ThemeData(
         fontFamily: 'Circular'
     ),
@@ -13,6 +15,8 @@ void main(){
 
 
 class HomePage extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

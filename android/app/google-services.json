@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "376990338861",
+    "project_id": "bluecar-eadb6",
+    "storage_bucket": "bluecar-eadb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376990338861:android:1fa0744f7fb6faffd74da4",
+        "android_client_info": {
+          "package_name": "com.example.blue_car"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376990338861-kblsrs9q552ipmbod5bnfp45tq3504g7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLFVCxCyVZjHw7DB8f-ttIJhMxHatpZt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376990338861-kblsrs9q552ipmbod5bnfp45tq3504g7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376990338861:android:d5c46160198e7258d74da4",
+        "android_client_info": {
+          "package_name": "com.exemple.blue_car"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376990338861-kblsrs9q552ipmbod5bnfp45tq3504g7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLFVCxCyVZjHw7DB8f-ttIJhMxHatpZt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376990338861-kblsrs9q552ipmbod5bnfp45tq3504g7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
