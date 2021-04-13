@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
+import 'package:provider/provider.dart';
+import 'package:blue_car/Services/auth_services.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -97,11 +99,15 @@ class _DrawerScreenState extends State<DrawerScreen> {
               SizedBox(
                 width: 4,
               ),
-              Text(
-                'Log out',
-                style:
+              TextButton(
+                  onPressed: () {
+                    context.read<AuthService>().logout();
+                  },
+                  child: const Text(
+                    'Log out',
+                    style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              )
+                  )),
             ],
           )
         ],

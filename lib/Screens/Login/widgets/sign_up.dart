@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:blue_car/theme.dart';
 import 'package:blue_car/widgets/snackbar.dart';
+import 'package:provider/provider.dart';
+import 'package:blue_car/Services/auth_services.dart';
+
+
 
 class SignUp extends StatefulWidget {
   const SignUp({Key key}) : super(key: key);
@@ -11,6 +17,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
   final FocusNode focusNodePassword = FocusNode();
   final FocusNode focusNodeConfirmPassword = FocusNode();
   final FocusNode focusNodeEmail = FocusNode();
@@ -92,7 +100,7 @@ class _SignUpState extends State<SignUp> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeEmail,
-                          controller: signupEmailController,
+                          controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           autocorrect: false,
                           style: const TextStyle(
@@ -124,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodePassword,
-                          controller: signupPasswordController,
+                          controller: passwordController,
                           obscureText: _obscureTextPassword,
                           autocorrect: false,
                           style: const TextStyle(
@@ -239,7 +247,32 @@ class _SignUpState extends State<SignUp> {
                           fontFamily: 'WorkSansBold'),
                     ),
                   ),
-                  onPressed: () => _toggleSignUpButton(),
+                  onPressed: () {
+                    final String email = emailController.text.trim();
+                    final String password = passwordController.text.trim();
+
+                    if(email.isEmpty){
+                      print("Email is Empty");
+                      CustomSnackBar(context, const Text('Rellene todos los campos'));
+                    } else {
+                      if(password.isEmpty){
+                        print("Password is Empty");
+                      } else {
+                        context.read<AuthService>().signUp(
+                          email,
+                          password,
+                        ).then((value) async {
+                          User user = FirebaseAuth.instance.currentUser;
+
+                          await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+                            'uid': user.uid,
+                            'email': email,
+                            'password': password,
+                          });
+                        });
+                      }
+                    }
+                  },
                 ),
               )
             ],

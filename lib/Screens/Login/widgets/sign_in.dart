@@ -1,9 +1,14 @@
 import 'package:blue_car/Screens/Home/drawerScreen.dart';
 import 'package:blue_car/Screens/Home/homeScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:blue_car/theme.dart';
 import 'package:blue_car/widgets/snackbar.dart';
+import 'package:provider/provider.dart';
+import 'package:blue_car/Services/auth_services.dart';
+
 
 
 class SignIn extends StatefulWidget {
@@ -14,8 +19,9 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  TextEditingController loginEmailController = TextEditingController();
-  TextEditingController loginPasswordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
 
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodePassword = FocusNode();
@@ -54,7 +60,7 @@ class _SignInState extends State<SignIn> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeEmail,
-                          controller: loginEmailController,
+                          controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           style: const TextStyle(
                               fontFamily: 'WorkSansSemiBold',
@@ -85,7 +91,7 @@ class _SignInState extends State<SignIn> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodePassword,
-                          controller: loginPasswordController,
+                          controller: passwordController,
                           obscureText: _obscureTextPassword,
                           style: const TextStyle(
                               fontFamily: 'WorkSansSemiBold',
@@ -143,21 +149,21 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return Scaffold(
-                            body: Stack(
-                              children: [
-                                DrawerScreen(),
-                                HomeScreen()
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    );
+                    final String email = emailController.text.trim();
+                    final String password = passwordController.text.trim();
+
+                    if(email.isEmpty){
+                      print("Email is Empty");
+                    } else {
+                      if(password.isEmpty){
+                        print("Password is Empty");
+                      } else {
+                        context.read<AuthService>().login(
+                          email,
+                          password,
+                        );
+                      }
+                    }
                   },
                 ),
               )
