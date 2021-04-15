@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
 import 'package:provider/provider.dart';
@@ -6,11 +7,17 @@ import 'package:blue_car/Services/auth_services.dart';
 class DrawerScreen extends StatefulWidget {
   @override
   _DrawerScreenState createState() => _DrawerScreenState();
+
 }
 
+
 class _DrawerScreenState extends State<DrawerScreen> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
+    final Userid = auth.currentUser.email;
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -38,7 +45,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     'Jonny Sins',
                     style: TextStyle(color: Colors.white),
                   ),
-                  Text('jonnysins@gmail.com', style: TextStyle(color: Colors.white))
+                  Text(Userid, style: TextStyle(color: Colors.white))
                 ],
               )
             ],

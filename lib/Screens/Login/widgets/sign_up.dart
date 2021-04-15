@@ -19,6 +19,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+  TextEditingController confirmpasswordController = new TextEditingController();
+
   final FocusNode focusNodePassword = FocusNode();
   final FocusNode focusNodeConfirmPassword = FocusNode();
   final FocusNode focusNodeEmail = FocusNode();
@@ -29,7 +31,6 @@ class _SignUpState extends State<SignUp> {
 
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController signupNameController = TextEditingController();
-  TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupConfirmPasswordController =
       TextEditingController();
 
@@ -174,7 +175,7 @@ class _SignUpState extends State<SignUp> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeConfirmPassword,
-                          controller: signupConfirmPasswordController,
+                          controller: confirmpasswordController,
                           obscureText: _obscureTextConfirmPassword,
                           autocorrect: false,
                           style: const TextStyle(
@@ -250,27 +251,28 @@ class _SignUpState extends State<SignUp> {
                   onPressed: () {
                     final String email = emailController.text.trim();
                     final String password = passwordController.text.trim();
+                    final String confirmPassword = confirmpasswordController.text.trim();
+                    final String name = signupNameController.text.trim();
 
-                    if(email.isEmpty){
-                      print("Email is Empty");
-                      CustomSnackBar(context, const Text('Rellene todos los campos'));
+                    if(email.isEmpty || password.isEmpty || confirmPassword.isEmpty || name.isEmpty){
+                      print("Faltan campos por rellenar");
+                      CustomSnackBar(context, const Text('Rellene todos los campos'),Colors.redAccent);
+                    } else if (confirmPassword != password ) {
+                        print("Las contraseñas no coinciden");
+                        CustomSnackBar(context, const Text('Las contraseñas no coinciden'),Colors.redAccent);
                     } else {
-                      if(password.isEmpty){
-                        print("Password is Empty");
-                      } else {
-                        context.read<AuthService>().signUp(
-                          email,
-                          password,
-                        ).then((value) async {
-                          User user = FirebaseAuth.instance.currentUser;
+                      context.read<AuthService>().signUp(
+                        email,
+                        password,
+                      ).then((value) async {
+                        User user = FirebaseAuth.instance.currentUser;
 
-                          await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
-                            'uid': user.uid,
-                            'email': email,
-                            'password': password,
-                          });
+                        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+                          'uid': user.uid,
+                          'email': email,
+                          'password': password,
                         });
-                      }
+                      });
                     }
                   },
                 ),
@@ -283,7 +285,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _toggleSignUpButton() {
-    CustomSnackBar(context, const Text('SignUp button pressed'));
+    CustomSnackBar(context, const Text('SignUp button pressed'),Colors.amber);
   }
 
   void _toggleSignup() {

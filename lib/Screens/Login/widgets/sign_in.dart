@@ -1,5 +1,6 @@
 import 'package:blue_car/Screens/Home/drawerScreen.dart';
 import 'package:blue_car/Screens/Home/homeScreen.dart';
+import 'package:blue_car/Services/reset_pass.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -152,18 +153,15 @@ class _SignInState extends State<SignIn> {
                     final String email = emailController.text.trim();
                     final String password = passwordController.text.trim();
 
-                    if(email.isEmpty){
-                      print("Email is Empty");
+                    if(email.isEmpty || password.isEmpty){
+                      print("Faltan campos por rellenar");
+                      CustomSnackBar(context, const Text('Rellene todos los campos'),Colors.redAccent);
                     } else {
-                      if(password.isEmpty){
-                        print("Password is Empty");
-                      } else {
                         context.read<AuthService>().login(
                           email,
                           password,
                         );
                       }
-                    }
                   },
                 ),
               )
@@ -172,7 +170,7 @@ class _SignInState extends State<SignIn> {
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {return ResetScreen();},
                 child: const Text('Forgot Password?',
                   style: TextStyle(decoration: TextDecoration.underline, color: Colors.white, fontSize: 15.0, fontFamily: 'WorkSansMedium'),
                 )),
@@ -228,8 +226,8 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(
-                  onTap: () => CustomSnackBar(
-                      context, const Text('Facebook button pressed')),
+                  onTap: () => context.read<AuthService>().signInWithFacebook(),
+
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: const BoxDecoration(
@@ -246,8 +244,7 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => CustomSnackBar(
-                      context, const Text('Google button pressed')),
+                  onTap: () => context.read<AuthService>().signInWithGoogle(),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: const BoxDecoration(
@@ -269,7 +266,7 @@ class _SignInState extends State<SignIn> {
   }
 
   void _toggleSignInButton() {
-    CustomSnackBar(context, const Text('Login button pressed'));
+    CustomSnackBar(context, const Text('Login button pressed'),Colors.amber);
   }
 
   void _toggleLogin() {
