@@ -29,17 +29,18 @@ class AuthService {
   }
 
 
-  Future<String> signUp(String email, String password) async {
+  Future<String> signUp(String email, String password, String name) async {
     try{
-      await _auth.createUserWithEmailAndPassword(email: email, password: password,).then((value) async {
+      await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) async {
         User user = FirebaseAuth.instance.currentUser;
 
         await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
           'uid': user.uid,
           'email': email,
           'password': password,
-
         });
+        user.updateProfile(displayName: name);
+
       });
       return "Signed Up";
     } on FirebaseAuthException catch (e) {

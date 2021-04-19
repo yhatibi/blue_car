@@ -1,3 +1,4 @@
+import 'package:blue_car/Screens/Perfil/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
@@ -91,9 +92,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.10,
-                    child: CircleAvatar(),
+                  new GestureDetector(
+                    onTap: (){
+                      return ProfileScreen();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.10,
+                      child: CircleAvatar(),
+
+                    ),
                   ),
 
                 ],

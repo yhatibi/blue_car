@@ -264,6 +264,7 @@ class _SignUpState extends State<SignUp> {
                       context.read<AuthService>().signUp(
                         email,
                         password,
+                        name,
                       ).then((value) async {
                         User user = FirebaseAuth.instance.currentUser;
 
@@ -271,6 +272,7 @@ class _SignUpState extends State<SignUp> {
                           'uid': user.uid,
                           'email': email,
                           'password': password,
+
                         });
                       });
                     }

@@ -11,12 +11,14 @@ class DrawerScreen extends StatefulWidget {
 }
 
 
+
 class _DrawerScreenState extends State<DrawerScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
     final Userid = auth.currentUser.email;
+    final nameUser = auth.currentUser.displayName.toString();
 
     return Container(
       decoration: BoxDecoration(
@@ -42,7 +44,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Jonny Sins',
+                    nameUser,
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(Userid, style: TextStyle(color: Colors.white))
