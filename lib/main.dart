@@ -1,3 +1,4 @@
+import 'package:blue_car/pruebas.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class AuthWrapper extends StatelessWidget{
   Widget build(BuildContext context) {
     final user = context.watch<User>();
 
+    // return Pruebas();
     if(user != null){
       return Scaffold(
         body: Stack(

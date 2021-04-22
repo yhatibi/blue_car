@@ -226,7 +226,6 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(
-                  onTap: () => context.read<AuthService>().signInWithFacebook(),
 
                   child: Container(
                     padding: const EdgeInsets.all(15.0),

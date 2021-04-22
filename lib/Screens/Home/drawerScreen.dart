@@ -17,8 +17,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Userid = auth.currentUser.email;
-    final nameUser = auth.currentUser.displayName.toString();
+    final emailUser = auth.currentUser.email;
+    final nameUser = auth.currentUser.displayName;
 
     return Container(
       decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     nameUser,
                     style: TextStyle(color: Colors.white),
                   ),
-                  Text(Userid, style: TextStyle(color: Colors.white))
+                  Text(emailUser, style: TextStyle(color: Colors.white))
                 ],
               )
             ],

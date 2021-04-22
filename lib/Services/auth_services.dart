@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -31,17 +32,13 @@ class AuthService {
 
   Future<String> signUp(String email, String password, String name) async {
     try{
-      await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) async {
-        User user = FirebaseAuth.instance.currentUser;
 
-        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
-          'uid': user.uid,
-          'email': email,
-          'password': password,
-        });
-        user.updateProfile(displayName: name);
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
-      });
+      await userCredential.user.updateProfile(displayName: name);
+
+      print("dfjdlkfds");
+
       return "Signed Up";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -54,18 +51,27 @@ class AuthService {
     }
   }
 
-  //Login con Facebook
-  Future<UserCredential> signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final AccessToken result = await FacebookAuth.instance.login();
 
-    // Create a credential from the access token
-    final FacebookAuthCredential facebookAuthCredential =
-    FacebookAuthProvider.credential(result.token);
+  Future updateUser(String newEmail, String newPassword, String newName) async {
+    try{
 
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+      if(newEmail.isNotEmpty){
+        await _auth.currentUser.updateEmail(newEmail);
+      }
+      if(newPassword.isNotEmpty) {
+        await _auth.currentUser.updatePassword(newPassword);
+      }
+      if(newName.isNotEmpty) {
+        await _auth.currentUser.updateProfile(displayName: newName);
+      }
+      print('Cambios CORRECTOS!');
+      return "Email cambiado!";
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+    }
   }
+
+
 
 
 
@@ -84,5 +90,7 @@ class AuthService {
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
+
+
 
 }

@@ -92,16 +92,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  new GestureDetector(
-                    onTap: (){
-                      return ProfileScreen();
+
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ProfileScreen()));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.10,
                       child: CircleAvatar(),
 
                     ),
-                  ),
+                   // Handle your callback
+
+                  )
 
                 ],
               ),

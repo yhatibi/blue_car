@@ -261,20 +261,8 @@ class _SignUpState extends State<SignUp> {
                         print("Las contraseñas no coinciden");
                         CustomSnackBar(context, const Text('Las contraseñas no coinciden'),Colors.redAccent);
                     } else {
-                      context.read<AuthService>().signUp(
-                        email,
-                        password,
-                        name,
-                      ).then((value) async {
-                        User user = FirebaseAuth.instance.currentUser;
-
-                        await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
-                          'uid': user.uid,
-                          'email': email,
-                          'password': password,
-
-                        });
-                      });
+                      print("ASD1 " + name);
+                      context.read<AuthService>().signUp(email,password,name,);
                     }
                   },
                 ),
