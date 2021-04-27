@@ -11,7 +11,6 @@ import 'profile_pic.dart';
 class Body extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-
   @override
   Widget build(BuildContext context) {
     final emailUser = auth.currentUser.email;
@@ -20,7 +19,23 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic("", false),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(blurRadius: 30, color: Colors.black38, spreadRadius: 0)
+              ],
+              border: new Border.all(
+                color: Colors.blue,
+                width: 2.0,
+              ),
+            ),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(auth.currentUser.photoURL),
+              radius: 60,
+            ),
+          ),
           SizedBox(height: 20),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -43,8 +58,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Configuración",
             icon: "assets/icons/Settings.svg",
-            press: () {Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditProfilePage()));
+            press: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EditProfilePage()));
             },
           ),
           ProfileMenu(
@@ -55,7 +71,11 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Salir",
             icon: "assets/icons/Log out.svg",
-            press: () {context.read<AuthService>().logout().then((value) => Navigator.pop(context));
+            press: () {
+              context
+                  .read<AuthService>()
+                  .logout()
+                  .then((value) => Navigator.pop(context));
             },
           ),
         ],

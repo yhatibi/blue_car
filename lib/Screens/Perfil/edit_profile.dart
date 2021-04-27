@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:blue_car/widgets/snackbar.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +24,6 @@ class SettingsUI extends StatelessWidget {
 }
 
 class EditProfilePage extends StatefulWidget {
-
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -35,8 +36,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
   File _image;
   final picker = ImagePicker();
 
+  String url;
+
+  void updateProfile(String email, String name, String password, File image) {
+    if (image == null) {
+      context
+          .read<AuthService>()
+          .updateUser(email, password, name, "").then((value) => CustomSnackBar(context, const Text('Cambios realizados correctamente!'),Colors.green));
+
+    } else {
+      FirebaseStorage storage = FirebaseStorage.instance;
+      Reference ref =
+          storage.ref().child("avatares/image1" + DateTime.now().toString());
+      UploadTask uploadTask = ref.putFile(image);
+      uploadTask.whenComplete(() {
+        ref.getDownloadURL().then(
+          (value) {
+            context
+                .read<AuthService>()
+                .updateUser(email, password, name, value);
+            setState(() {
+              url = value;
+            });
+          },
+        );
+        CustomSnackBar(context, const Text('Cambios realizados correctamente!'),Colors.green);
+      }).catchError((onError) {
+        print(onError);
+      });
+    }
+  }
+
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
@@ -47,13 +79,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
-
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   bool showPassword = false;
+
   @override
   Widget build(BuildContext context) {
-
     final emailUser = auth.currentUser.email;
     final nameUser = auth.currentUser.displayName;
     return Scaffold(
@@ -65,7 +96,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Icons.arrow_back,
             color: Colors.blue,
           ),
-          onPressed: () {Navigator.pop(context);},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           IconButton(
@@ -78,7 +111,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+        padding: EdgeInsets.only(left: 30, top: 25, right: 30),
         child: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
@@ -87,7 +120,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               Text(
                 "Editar Perfil:",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black54),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54),
               ),
               SizedBox(
                 height: 15,
@@ -95,38 +131,55 @@ class _EditProfilePageState extends State<EditProfilePage> {
               Center(
                 child: Stack(
                   children: [
-                  SizedBox(
-                  height: 115,
-                  width: 115,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(""),
-                      ),
-                        Positioned(
-                          right: -16,
-                          bottom: 0,
-                          child: SizedBox(
-                            height: 46,
-                            width: 46,
-                            child: MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                                side: BorderSide(color: Colors.white),
+                    SizedBox(
+                      height: 115,
+                      width: 115,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: new Border.all(
+                                color: Colors.blue,
+                                width: 2.0,
                               ),
-                              color: Color(0xFFF5F6F9),
-                              onPressed: () {
-                                getImage();
-                                },
-                              child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                            ),
+                            child: CircleAvatar(
+                              backgroundImage: _image == null
+                                  ? NetworkImage(
+                                      auth.currentUser.photoURL == null
+                                          ? _image.path
+                                          : auth.currentUser.photoURL)
+                                  : FileImage(_image),
+                              radius: 60,
                             ),
                           ),
-                        )
-
-                    ],
-                  ),
-                ),                    SizedBox(height: 20)
+                          Positioned(
+                            right: -16,
+                            bottom: 0,
+                            child: SizedBox(
+                              height: 46,
+                              width: 46,
+                              child: MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                  side: BorderSide(color: Colors.white),
+                                ),
+                                color: Color(0xFFF5F6F9),
+                                onPressed: () {
+                                  getImage();
+                                },
+                                child: SvgPicture.asset(
+                                    "assets/icons/Camera Icon.svg"),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20)
                   ],
                 ),
               ),
@@ -142,35 +195,36 @@ class _EditProfilePageState extends State<EditProfilePage> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   RaisedButton(
-                    onPressed: ()  {
+                  RaisedButton(
+                    onPressed: () {
                       final String email = emailController.text.trim();
                       final String name = nameController.text.trim();
                       final String password = passwordController.text.trim();
 
-
-                      context.read<AuthService>().updateUser(email,password,name,);
+                      updateProfile(email, name, password, _image);
                     },
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80.0)),
                     padding: EdgeInsets.all(0.0),
                     child: Ink(
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(colors: [CustomTheme.loginGradientEnd, CustomTheme.loginGradientStart],
+                          gradient: LinearGradient(
+                            colors: [
+                              CustomTheme.loginGradientEnd,
+                              CustomTheme.loginGradientStart
+                            ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                           ),
-                          borderRadius: BorderRadius.circular(30.0)
-                      ),
+                          borderRadius: BorderRadius.circular(30.0)),
                       child: Container(
-                        constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+                        constraints:
+                            BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                         alignment: Alignment.center,
                         child: Text(
                           "GUARDAR",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                       ),
                     ),
@@ -180,34 +234,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ],
           ),
         ),
-
       ),
-
     );
   }
 
-  Widget buildTextField(
-      String labelText, String placeholder, bool isPasswordTextField, TextEditingController controller) {
+  Widget buildTextField(String labelText, String placeholder,
+      bool isPasswordTextField, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
         controller: controller,
         obscureText: isPasswordTextField ? !showPassword : false,
         decoration: InputDecoration(
+
             suffixIcon: isPasswordTextField
                 ? IconButton(
-              onPressed: () {
-                setState(() {
-                  showPassword = !showPassword;
-                });
-              },
-              icon: Icon(
-                Icons.remove_red_eye,
-                color: Colors.grey,
-              ),
-            )
+                    onPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.remove_red_eye,
+                      color: Colors.blue,
+                    ),
+                  )
                 : null,
-            contentPadding: EdgeInsets.only(bottom: 3),
+
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.blue, width: 1.0),
+            ),
+            contentPadding: EdgeInsets.only(bottom: 3, left: 7),
             labelText: labelText,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             hintText: placeholder,

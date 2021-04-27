@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -52,7 +50,7 @@ class AuthService {
   }
 
 
-  Future updateUser(String newEmail, String newPassword, String newName) async {
+  Future updateUser(String newEmail, String newPassword, String newName, String urlImage) async {
     try{
 
       if(newEmail.isNotEmpty){
@@ -64,13 +62,15 @@ class AuthService {
       if(newName.isNotEmpty) {
         await _auth.currentUser.updateProfile(displayName: newName);
       }
+      if(urlImage.isNotEmpty) {
+        await _auth.currentUser.updateProfile(photoURL: urlImage);
+      }
       print('Cambios CORRECTOS!');
       return "Email cambiado!";
     } on FirebaseAuthException catch (e) {
       print(e.code);
     }
   }
-
 
 
 
@@ -87,10 +87,10 @@ class AuthService {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
 
 
 }

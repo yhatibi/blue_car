@@ -1,7 +1,6 @@
 import 'package:blue_car/Screens/Home/drawerScreen.dart';
 import 'package:blue_car/Screens/Home/homeScreen.dart';
 import 'package:blue_car/Services/reset_pass.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

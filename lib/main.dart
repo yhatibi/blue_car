@@ -1,3 +1,4 @@
+import 'package:blue_car/Pruebas/home_screen.dart';
 import 'package:blue_car/pruebas.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,14 +49,9 @@ class AuthWrapper extends StatelessWidget{
 
     // return Pruebas();
     if(user != null){
-      return Scaffold(
-        body: Stack(
-          children: [
-            DrawerScreen(),
+      return
             HomeScreen()
-          ],
-        ),
-      );
+      ;
     }
     return LoginPage();
   }
