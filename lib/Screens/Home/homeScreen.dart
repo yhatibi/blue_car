@@ -1,3 +1,4 @@
+import 'package:blue_car/Screens/Anuncio/anuncio_screen.dart';
 import 'package:blue_car/Screens/Chat/screens/chats/chats_screen.dart';
 import 'package:blue_car/Screens/Perfil/components/profile_pic.dart';
 import 'package:blue_car/Screens/Perfil/profile_screen.dart';
@@ -5,10 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
-import 'package:blue_car/Screens/Anuncio/anuncio.dart';
 import 'package:blue_car/theme.dart';
 import 'package:blue_car/widgets/snackbar.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -27,55 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _currentIndex,
-        onTap: (i) {
-          setState(() => _currentIndex = i);
-          switch (i) {
-            case 0:
-              Navigator.pushNamed(context, '/');
-              break;
-            case 1:
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => ChatsScreen()));
-              break;
-            default:
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => ChatsScreen()));
-          }
-        },
-        items: [
-          /// Home
-          SalomonBottomBarItem(
-            icon: Icon(Icons.home),
-            title: Text("Home"),
-            selectedColor: Colors.purple,
-          ),
-
-          /// Likes
-          SalomonBottomBarItem(
-            icon: Icon(Icons.favorite_border),
-            title: Text("Likes"),
-            selectedColor: Colors.pink,
-          ),
-
-          /// Search
-          SalomonBottomBarItem(
-            icon: Icon(Icons.search),
-            title: Text("Search"),
-            selectedColor: Colors.orange,
-          ),
-
-          /// Profile
-          SalomonBottomBarItem(
-            icon: Icon(Icons.person),
-            title: Text("Profile"),
-            selectedColor: Colors.teal,
-          ),
-        ],
-      ),
-      body: AnimatedContainer(
+     return AnimatedContainer(
         transform: Matrix4.translationValues(xOffset, yOffset, 0)
           ..scale(scaleFactor)
           ..rotateY(isDrawerOpen ? -0.5 : 0),
@@ -204,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Anuncio()));
+                      MaterialPageRoute(builder: (context) => AnuncioScreen()));
                 },
                 child: Container(
                   height: 180,
@@ -298,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Anuncio()));
+                      MaterialPageRoute(builder: (context) => AnuncioScreen()));
                 },
                 child: Container(
                   height: 180,
@@ -392,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Anuncio()));
+                      MaterialPageRoute(builder: (context) => AnuncioScreen()));
                 },
                 child: Container(
                   height: 180,
@@ -489,7 +440,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

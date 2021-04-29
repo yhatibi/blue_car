@@ -49,9 +49,14 @@ class AuthWrapper extends StatelessWidget{
 
     // return Pruebas();
     if(user != null){
-      return
+      return Scaffold(
+        body: Stack(
+          children: [
+            DrawerScreen(),
             HomeScreen()
-      ;
+          ],
+        ),
+      );
     }
     return LoginPage();
   }

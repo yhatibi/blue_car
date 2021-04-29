@@ -5,7 +5,7 @@ import 'package:blue_car/configuration.dart';
 
 import '../../theme.dart';
 
-class Anuncio extends StatelessWidget {
+class AnuncioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
