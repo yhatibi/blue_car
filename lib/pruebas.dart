@@ -6,6 +6,9 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 
+import 'Services/bluecar_api.dart';
+import 'notifier/anuncio_notifier.dart';
+
 
 class Pruebas extends StatefulWidget {
   @override
@@ -13,6 +16,11 @@ class Pruebas extends StatefulWidget {
 }
 
 class _PruebasState extends State<Pruebas> {
+  void initState() {
+    AnuncioNotifier anuncioNotifier = Provider.of<AnuncioNotifier>(context, listen: false);
+    getAnuncio(anuncioNotifier);
+    super.initState();
+  }
   // String nombre = "waiting";
   // final FirebaseAuth auth = FirebaseAuth.instance;
   //
@@ -61,14 +69,25 @@ class _PruebasState extends State<Pruebas> {
 
   @override
   Widget build(BuildContext context) {
+    AnuncioNotifier anuncioNotifier = Provider.of<AnuncioNotifier>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Image Picker Example'),
       ),
-      body: Center(
-        child: _image == null
-            ? Text('No image selected.')
-            : Image.file(_image),
+      body: ListView.separated(
+        itemBuilder: (BuildContext context, int index){
+          return ListTile(
+            title: Text(anuncioNotifier.anuncioLista[index].titulo),
+            subtitle: Text(anuncioNotifier.anuncioLista[index].descripcion),
+          );
+        },
+        itemCount: anuncioNotifier.anuncioLista.length,
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider(
+            color: Colors.black38,
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,

@@ -1,4 +1,5 @@
 import 'package:blue_car/Pruebas/home_screen.dart';
+import 'package:blue_car/notifier/anuncio_notifier.dart';
 import 'package:blue_car/pruebas.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => AnuncioNotifier(),
+        ),
         Provider<AuthService>(
           create: (_) => AuthService(FirebaseAuth.instance),
         ),
