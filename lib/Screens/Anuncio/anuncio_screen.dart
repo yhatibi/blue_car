@@ -1,6 +1,7 @@
 import 'package:blue_car/Screens/Chat/screens/chats/chats_screen.dart';
 import 'package:blue_car/Screens/Chat/screens/messages/message_screen.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,9 @@ import 'package:provider/provider.dart';
 import '../../theme.dart';
 
 class AnuncioScreen extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
 
