@@ -32,7 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  int _currentIndex = 0;
+
+  String page = 'Blue';
+
 
   double xOffset = 0;
   double yOffset = 0;
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         buttonColor: Colors.grey,
         buttonSelectedColor: Colors.blue,
-        fabColors: [Colors.red.shade900, Colors.red],
+        fabColors: [Color(0xFF0bbafb), Color(0xFF4285ec)],
         buttonData: [
           PandaBarButtonData(
             id: 'Blue',
@@ -59,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           PandaBarButtonData(
               id: 'Green',
               icon: Icons.favorite,
-              title: 'Favoritos'
+              title: 'Favoritos',
           ),
           PandaBarButtonData(
               id: 'Red',
@@ -74,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         onChange: (id) {
           setState(() {
+
           });
         },
         onFabButtonPressed: () {

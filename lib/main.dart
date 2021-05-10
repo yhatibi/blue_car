@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Screens/Home/drawerScreen.dart';
+import 'Screens/Home/bottom_screen.dart';
 import 'Screens/Home/homeScreen.dart';
 import 'Screens/Login/login_page.dart';
 import 'Services/auth_services.dart';
@@ -53,7 +54,7 @@ class AuthWrapper extends StatelessWidget{
 
     // return Pruebas();
     if(user != null){
-      return HomeScreen();
+      return BottomBar();
     }
     return LoginPage();
   }
