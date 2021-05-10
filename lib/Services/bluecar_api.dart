@@ -1,6 +1,11 @@
 import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as path;
+import 'package:uuid/uuid.dart';
+
+
 
 getAnuncio(AnuncioNotifier anuncioNotifier) async {
   final firestoreInstance = FirebaseFirestore.instance;
@@ -22,3 +27,6 @@ getAnuncio(AnuncioNotifier anuncioNotifier) async {
 
   anuncioNotifier.anuncioLista = _anuncioLista;
 }
+
+
+

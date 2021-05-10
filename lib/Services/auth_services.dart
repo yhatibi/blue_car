@@ -37,7 +37,7 @@ class AuthService {
 
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
-      await userCredential.user.updateProfile(displayName: name);
+      await userCredential.user.updateProfile(displayName: name, photoURL: "https://firebasestorage.googleapis.com/v0/b/bluecar-eadb6.appspot.com/o/avatares%2Fimage12021-04-26%2019%3A18%3A01.011096?alt=media&token=270e2f4b-2b60-410a-8102-e93060829f7b");
 
       print("dfjdlkfds");
 

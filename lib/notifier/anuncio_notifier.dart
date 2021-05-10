@@ -17,7 +17,7 @@ class AnuncioNotifier with ChangeNotifier{
   }
 
   set actualAnuncio(Anuncio anuncio) {
-    _actualAnuncio = actualAnuncio;
+    _actualAnuncio = anuncio;
     notifyListeners();
   }
 }

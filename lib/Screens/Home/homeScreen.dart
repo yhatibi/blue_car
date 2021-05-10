@@ -1,4 +1,5 @@
 import 'package:blue_car/Screens/Anuncio/anuncio_screen.dart';
+import 'package:blue_car/Screens/Anuncio/create_edit_anuncio_screen.dart';
 import 'package:blue_car/Screens/Chat/screens/chats/chats_screen.dart';
 import 'package:blue_car/Screens/Perfil/components/profile_pic.dart';
 import 'package:blue_car/Screens/Perfil/profile_screen.dart';
@@ -272,9 +273,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
+
+            TextButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.focused))
+                        return Colors.red;
+                      return null; // Defer to the widget's default.
+                    }
+                ),
+              ),
+              onPressed: () {
+                anuncioNotifier.actualAnuncio = null;
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (BuildContext context) {
+                    return AnuncioForm(
+                      isUpdating: false,
+                    );
+                  }),
+                );
+              },
+              child: Text('TextButton'),
+            ),
             SizedBox(
               height: 600,
-            )
+            ),
           ],
         ),
       ),
