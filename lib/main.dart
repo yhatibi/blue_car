@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AnuncioNotifier(),
+          create: (context) => AnunciosModel(),
         ),
         Provider<AuthService>(
           create: (_) => AuthService(FirebaseAuth.instance),

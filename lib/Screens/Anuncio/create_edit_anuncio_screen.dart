@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AnuncioForm extends StatefulWidget {
-  const AnuncioForm({Key key, bool isUpdating}) : super(key: key);
+  const AnuncioForm({Key key}) : super(key: key);
 
   @override
   _AnuncioFormState createState() => _AnuncioFormState();

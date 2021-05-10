@@ -20,7 +20,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AnuncioNotifier anuncioNotifier = Provider.of<AnuncioNotifier>(context);
+    AnunciosModel anuncioNotifier = Provider.of<AnunciosModel>(context);
     print(anuncioNotifier.actualAnuncio.titulo);
     print(auth.currentUser.uid);
     print(anuncioNotifier.actualAnuncio.creador);
@@ -162,19 +162,21 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     }),
-                IconButton(
-                    icon: Icon(Icons.share),
-                    color: Colors.white,
-                    onPressed: () {}),
-                if (anuncioNotifier.actualAnuncio.creador != null && auth.currentUser.uid == anuncioNotifier.actualAnuncio.creador)
-                  IconButton(
-                      icon: Icon(Icons.edit),
-                      color: Colors.white,
-                      onPressed: () {
-
-
-
-                      })
+                Row(
+                  children: [
+                    if (anuncioNotifier.actualAnuncio.creador != null &&
+                        auth.currentUser.uid ==
+                            anuncioNotifier.actualAnuncio.creador)
+                      IconButton(
+                          icon: Icon(Icons.edit),
+                          color: Colors.white,
+                          onPressed: () {}),
+                    IconButton(
+                        icon: Icon(Icons.share),
+                        color: Colors.white,
+                        onPressed: () {})
+                  ],
+                ),
               ],
             ),
           ),

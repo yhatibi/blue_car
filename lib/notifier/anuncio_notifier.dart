@@ -3,7 +3,8 @@ import 'dart:collection';
 import 'package:blue_car/models/anuncio.dart';
 import 'package:flutter/cupertino.dart';
 
-class AnuncioNotifier with ChangeNotifier{
+class AnunciosModel with ChangeNotifier{
+
   List<Anuncio> _anuncioLista = [];
   Anuncio _actualAnuncio;
 

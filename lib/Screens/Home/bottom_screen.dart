@@ -60,13 +60,7 @@ class _BottomBarState extends State<BottomBar> {
           });
         },
         onFabButtonPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (BuildContext context) {
-              return AnuncioForm(
-                isUpdating: false,
-              );
-            }),
-          );
+              return AnuncioForm();
         },
       ),
 

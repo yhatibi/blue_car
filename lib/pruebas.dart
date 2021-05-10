@@ -17,8 +17,8 @@ class Pruebas extends StatefulWidget {
 
 class _PruebasState extends State<Pruebas> {
   void initState() {
-    AnuncioNotifier anuncioNotifier = Provider.of<AnuncioNotifier>(context, listen: false);
-    getAnuncio(anuncioNotifier);
+    AnunciosModel anuncioNotifier = Provider.of<AnunciosModel>(context, listen: false);
+    // getAnuncio(anuncioNotifier);
     super.initState();
   }
   // String nombre = "waiting";
@@ -69,7 +69,7 @@ class _PruebasState extends State<Pruebas> {
 
   @override
   Widget build(BuildContext context) {
-    AnuncioNotifier anuncioNotifier = Provider.of<AnuncioNotifier>(context);
+    AnunciosModel anuncioNotifier = Provider.of<AnunciosModel>(context);
 
     return Scaffold(
       appBar: AppBar(

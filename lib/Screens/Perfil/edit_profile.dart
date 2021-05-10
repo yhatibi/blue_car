@@ -156,26 +156,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               radius: 60,
                             ),
                           ),
-                          Positioned(
-                            right: -16,
-                            bottom: 0,
-                            child: SizedBox(
-                              height: 46,
-                              width: 46,
-                              child: MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                  side: BorderSide(color: Colors.white),
-                                ),
-                                color: Color(0xFFF5F6F9),
-                                onPressed: () {
-                                  getImage();
-                                },
-                                child: SvgPicture.asset(
-                                    "assets/icons/Camera Icon.svg"),
-                              ),
-                            ),
-                          )
+
                         ],
                       ),
                     ),

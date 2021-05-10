@@ -7,26 +7,21 @@ import 'package:uuid/uuid.dart';
 
 
 
-getAnuncio(AnuncioNotifier anuncioNotifier) async {
+Future<List<Anuncio>> getAnuncios() async {
   final firestoreInstance = FirebaseFirestore.instance;
 
   List<Anuncio> _anuncioLista = [];
 
-  firestoreInstance.collection("Anuncios").orderBy("createdAt", descending: true).get().then((querySnapshot) {
-    //print(querySnapshot);
-    print("users: results: length: " + querySnapshot.docs.length.toString());
-    querySnapshot.docs.forEach((value) {
-      Anuncio anuncio = Anuncio.fromMap(value.data());
-      _anuncioLista.add(anuncio);
-      print('Retorno');
-      print(value.data());
-    });
-  }).catchError((onError) {
-    print("ERROR getCloudFirestoreUsers: "+onError);
+  QuerySnapshot querySnapshot = await firestoreInstance.collection("Anuncios").orderBy("createdAt", descending: true).get();
+
+
+  querySnapshot.docs.forEach((value) {
+    Anuncio anuncio = Anuncio.fromMap(value.data());
+    _anuncioLista.add(anuncio);
+    print('Retorno');
+    print(value.data());
   });
 
-  anuncioNotifier.anuncioLista = _anuncioLista;
+  return _anuncioLista;
 }
-
-
 
