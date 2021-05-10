@@ -19,7 +19,9 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
+
           Container(
+            margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
