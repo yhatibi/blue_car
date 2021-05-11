@@ -49,9 +49,9 @@ class ChatHeaderWidget extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 12),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ChatPage(user: users[index]),
-                      ));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //   builder: (context) => ChatPage(user: users[index]),
+                      // ));
                     },
                     child: CircleAvatar(
                       radius: 24,

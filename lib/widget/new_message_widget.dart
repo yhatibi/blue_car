@@ -4,11 +4,10 @@ import 'package:flutter/services.dart';
 
 class NewMessageWidget extends StatefulWidget {
   final String idUser;
-  final String idAnuncio;
 
   const NewMessageWidget({
     @required this.idUser,
-    Key key, String this.idAnuncio,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -17,12 +16,15 @@ class NewMessageWidget extends StatefulWidget {
 
 class _NewMessageWidgetState extends State<NewMessageWidget> {
   final _controller = TextEditingController();
+  String chatRoomID;
   String message = '';
 
   void sendMessage() async {
     FocusScope.of(context).unfocus();
 
-    await uploadMessage(widget.idUser, message, widget.idAnuncio);
+    chatRoomID = await createChatRoom(widget.idUser);
+    print('ChatRoomid: $chatRoomID' );
+    // await uploadMessage(widget.idUser);
 
     _controller.clear();
   }

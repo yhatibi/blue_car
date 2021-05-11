@@ -36,9 +36,9 @@ class ChatBodyWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10, top: 10),
         child: ListTile(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ChatPage(user: user),
-            ));
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) => ChatPage(user: user),
+            // ));
           },
           leading: CircleAvatar(
             radius: 25,

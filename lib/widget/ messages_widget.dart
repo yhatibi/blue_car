@@ -16,7 +16,7 @@ class MessagesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => StreamBuilder<List<Message>>(
-    stream: getMessages(idUser, idAnuncio),
+    stream: getMessages(idUser),
     builder: (context, snapshot) {
       switch (snapshot.connectionState) {
         case ConnectionState.waiting:

@@ -30,29 +30,35 @@ Future<List<Anuncio>> getAnuncios() async {
   return _anuncioLista;
 }
 
-Stream<List<User>> getUsers() =>
-    FirebaseFirestore.instance
-        .collection('users')
-        .orderBy(UserField.lastMessageTime, descending: true)
-        .snapshots()
-        .transform(Utils.transformer(User.fromJson));
+Stream<List<User>> getUsers() => FirebaseFirestore.instance
+    .collection('users')
+    .orderBy(UserField.lastMessageTime, descending: true)
+    .snapshots()
+    .transform(Utils.transformer(User.fromJson));
 
 
-Future createChatRoom(String idAnuncio, String idUser) async {
-  final refMessages = FirebaseFirestore.instance.collection(
-      'chats/chatRoom');
-  final newChatRoom = ChatRoom(
-      idChatRoom: idUser+idAnuncio,
-      idAnuncio: idAnuncio,
-      idUser: idUser,
-      createdAt: DateTime.now()
-  );
-  await refMessages.add(newChatRoom.toJson());
+Future createChatRoom(String idUser) async {
+  var _randomId = FirebaseFirestore.instance.collection('').id;
+  print(_randomId);
+  // final refChatRoom = FirebaseFirestore.instance.collection('chats/$idUser');
+  // String refID = refChatRoom.id;
+  // print(refID);
+  // final addChatIdUser =
+  //     FirebaseFirestore.instance.collection('users/$idUser/chats/$refID');
+  //
+  // await addChatIdUser
+  //     .add({
+  //       'name': idUser,
+  //     })
+  //     .then((value) => print("Added!"))
+  //     .catchError((error) => print("Failed to add : $error"));
+
+  // return refID;
 }
 
-Future uploadMessage(String idUser, String message, String idAnuncio) async {
+Future uploadMessage(String idUser, String message, String idChatRoom) async {
   final refMessages =
-  FirebaseFirestore.instance.collection('chats/$idAnuncio+$idUser/messages');
+      FirebaseFirestore.instance.collection('chats/$idChatRoom/messages');
 
   final newMessage = Message(
     idUser: myId,
@@ -69,14 +75,12 @@ Future uploadMessage(String idUser, String message, String idAnuncio) async {
       .update({UserField.lastMessageTime: DateTime.now()});
 }
 
-
-Stream<List<Message>> getMessages(String idUser, String idAnuncio) =>
+Stream<List<Message>> getMessages(String idChatRoom) =>
     FirebaseFirestore.instance
-        .collection('chats/$idAnuncio+$idUser/messages')
+        .collection('chats/$idChatRoom/messages')
         .orderBy(MessageField.createdAt, descending: true)
         .snapshots()
         .transform(Utils.transformer(Message.fromJson));
-
 
 Future addRandomUsers(List<User> users) async {
   final refUsers = FirebaseFirestore.instance.collection('users');

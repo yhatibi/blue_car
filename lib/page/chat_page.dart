@@ -5,12 +5,10 @@ import 'package:blue_car/widget/profile_header_widget.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
-  final User user;
-  final String idAnuncio;
+  final String idUser;
 
   const ChatPage({
-    @required this.user,
-    Key key, this.idAnuncio,
+    Key key, this.idUser,
   }) : super(key: key);
 
   @override
@@ -25,7 +23,7 @@ class _ChatPageState extends State<ChatPage> {
     body: SafeArea(
       child: Column(
         children: [
-          ProfileHeaderWidget(name: widget.user.name),
+          // ProfileHeaderWidget(name: widget.user.name),
           Expanded(
             child: Container(
               padding: EdgeInsets.all(10),
@@ -36,10 +34,10 @@ class _ChatPageState extends State<ChatPage> {
                   topRight: Radius.circular(25),
                 ),
               ),
-              child: MessagesWidget(idUser: widget.user.idUser, idAnuncio: widget.idAnuncio),
+              // child: MessagesWidget(idUser: widget.user.idUser, idAnuncio: widget.idAnuncio),
             ),
           ),
-          NewMessageWidget(idUser: widget.user.idUser, idAnuncio: widget.idAnuncio)
+          NewMessageWidget(idUser: widget.idUser)
         ],
       ),
     ),
