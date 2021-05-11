@@ -170,6 +170,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+            Container(
+              height: 30,
+              margin: EdgeInsets.only(left: 20),
+              width: MediaQuery.of(context).size.width,
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  "Ultimos anuncios:",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black54),
+                ),
+              ),
+            ),
             Consumer<AnunciosModel>(
               builder: (context, anunciosModel, child) => ListView.separated(
                 shrinkWrap: true,
@@ -254,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Colors.black12,
                                                   boxShadow: shadowList,
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 child: Text(
                                                   "250.000km",
@@ -271,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Colors.black12,
                                                   boxShadow: shadowList,
                                                   borderRadius:
-                                                  BorderRadius.circular(10),
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 child: Text(
                                                   "2019",
@@ -281,7 +294,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   textAlign: TextAlign.left,
                                                 ),
                                               ),
-
                                             ],
                                           ),
                                         ],
