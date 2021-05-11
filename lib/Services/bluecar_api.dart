@@ -1,3 +1,4 @@
+import 'package:blue_car/model/chat_room.dart';
 import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,18 +30,29 @@ Future<List<Anuncio>> getAnuncios() async {
   return _anuncioLista;
 }
 
-Stream<List<User>> getUsers() => FirebaseFirestore.instance
-    .collection('users')
-    .orderBy(UserField.lastMessageTime, descending: true)
-    .snapshots()
-    .transform(Utils.transformer(User.fromJson));
+Stream<List<User>> getUsers() =>
+    FirebaseFirestore.instance
+        .collection('users')
+        .orderBy(UserField.lastMessageTime, descending: true)
+        .snapshots()
+        .transform(Utils.transformer(User.fromJson));
 
 
+Future createChatRoom(String idAnuncio, String idUser) async {
+  final refMessages = FirebaseFirestore.instance.collection(
+      'chats/chatRoom');
+  final newChatRoom = ChatRoom(
+      idChatRoom: idUser+idAnuncio,
+      idAnuncio: idAnuncio,
+      idUser: idUser,
+      createdAt: DateTime.now()
+  );
+  await refMessages.add(newChatRoom.toJson());
+}
 
-
-Future uploadMessage(String idUser, String message) async {
+Future uploadMessage(String idUser, String message, String idAnuncio) async {
   final refMessages =
-      FirebaseFirestore.instance.collection('chats/$idUser/messages');
+  FirebaseFirestore.instance.collection('chats/$idAnuncio+$idUser/messages');
 
   final newMessage = Message(
     idUser: myId,
@@ -58,14 +70,12 @@ Future uploadMessage(String idUser, String message) async {
 }
 
 
-
-Stream<List<Message>> getMessages(String idUser) => FirebaseFirestore.instance
-    .collection('chats/$idUser/messages')
-    .orderBy(MessageField.createdAt, descending: true)
-    .snapshots()
-    .transform(Utils.transformer(Message.fromJson));
-
-
+Stream<List<Message>> getMessages(String idUser, String idAnuncio) =>
+    FirebaseFirestore.instance
+        .collection('chats/$idAnuncio+$idUser/messages')
+        .orderBy(MessageField.createdAt, descending: true)
+        .snapshots()
+        .transform(Utils.transformer(Message.fromJson));
 
 
 Future addRandomUsers(List<User> users) async {

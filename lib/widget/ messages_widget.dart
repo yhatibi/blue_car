@@ -7,15 +7,16 @@ import '../data.dart';
 
 class MessagesWidget extends StatelessWidget {
   final String idUser;
+  final String idAnuncio;
 
   const MessagesWidget({
     @required this.idUser,
-    Key key,
+    Key key, this.idAnuncio,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => StreamBuilder<List<Message>>(
-    stream: getMessages(idUser),
+    stream: getMessages(idUser, idAnuncio),
     builder: (context, snapshot) {
       switch (snapshot.connectionState) {
         case ConnectionState.waiting:

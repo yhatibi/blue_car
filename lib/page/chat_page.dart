@@ -1,15 +1,16 @@
 import 'package:blue_car/model/user.dart';
-import 'file:///C:/Users/Yasin/AndroidStudioProjects/blue_car/lib/widget/%20messages_widget.dart';
-import 'file:///C:/Users/Yasin/AndroidStudioProjects/blue_car/lib/widget/new_message_widget.dart';
-import 'file:///C:/Users/Yasin/AndroidStudioProjects/blue_car/lib/widget/profile_header_widget.dart';
+import 'package:blue_car/widget/%20messages_widget.dart';
+import 'package:blue_car/widget/new_message_widget.dart';
+import 'package:blue_car/widget/profile_header_widget.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
   final User user;
+  final String idAnuncio;
 
   const ChatPage({
     @required this.user,
-    Key key,
+    Key key, this.idAnuncio,
   }) : super(key: key);
 
   @override
@@ -35,10 +36,10 @@ class _ChatPageState extends State<ChatPage> {
                   topRight: Radius.circular(25),
                 ),
               ),
-              child: MessagesWidget(idUser: widget.user.idUser),
+              child: MessagesWidget(idUser: widget.user.idUser, idAnuncio: widget.idAnuncio),
             ),
           ),
-          NewMessageWidget(idUser: widget.user.idUser)
+          NewMessageWidget(idUser: widget.user.idUser, idAnuncio: widget.idAnuncio)
         ],
       ),
     ),

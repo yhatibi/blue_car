@@ -4,10 +4,11 @@ import 'package:flutter/services.dart';
 
 class NewMessageWidget extends StatefulWidget {
   final String idUser;
+  final String idAnuncio;
 
   const NewMessageWidget({
     @required this.idUser,
-    Key key,
+    Key key, String this.idAnuncio,
   }) : super(key: key);
 
   @override
@@ -21,7 +22,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
   void sendMessage() async {
     FocusScope.of(context).unfocus();
 
-    await uploadMessage(widget.idUser, message);
+    await uploadMessage(widget.idUser, message, widget.idAnuncio);
 
     _controller.clear();
   }

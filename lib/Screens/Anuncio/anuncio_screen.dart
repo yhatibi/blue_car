@@ -1,3 +1,6 @@
+import 'package:blue_car/model/user.dart';
+import 'package:blue_car/model/user.dart';
+import 'package:blue_car/model/user.dart';
 import 'package:blue_car/page/chat_page.dart';
 
 import 'package:blue_car/models/anuncio.dart';
@@ -8,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
 import 'package:provider/provider.dart';
 
+import '../../data.dart';
 import '../../theme.dart';
+import 'package:blue_car/model/user.dart' as u;
 
 class AnuncioScreen extends StatefulWidget {
   @override
@@ -24,6 +29,14 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
     print(anuncioNotifier.actualAnuncio.titulo);
     print(auth.currentUser.uid);
     print(anuncioNotifier.actualAnuncio.creador);
+    var now = DateTime.now();
+
+    final user = new u.User(
+        idUser: anuncioNotifier.actualAnuncio.creador,
+        name: myUsername,
+        urlAvatar: myUrlAvatar,
+    lastMessageTime: now);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -227,18 +240,9 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                       height: 50.0,
                       child: RaisedButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Scaffold(
-                                  body: Stack(
-                                    children: [ChatPage()],
-                                  ),
-                                );
-                              },
-                            ),
-                          );
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ChatPage(user: user, idAnuncio: anuncioNotifier.actualAnuncio.id),
+                          ));
                         },
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(80.0)),

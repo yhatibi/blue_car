@@ -6,6 +6,7 @@
 // String myUrlAvatar = 'https://i.imgur.com/GXoYikT.png';
 
 // Napoleon
+import 'package:blue_car/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
