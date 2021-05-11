@@ -1,5 +1,5 @@
-import 'package:blue_car/Screens/Chat/screens/chats/chats_screen.dart';
-import 'package:blue_car/Screens/Chat/screens/messages/message_screen.dart';
+import 'package:blue_car/page/chat_page.dart';
+
 import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -233,7 +233,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                               builder: (context) {
                                 return Scaffold(
                                   body: Stack(
-                                    children: [MessagesScreen()],
+                                    children: [ChatPage()],
                                   ),
                                 );
                               },

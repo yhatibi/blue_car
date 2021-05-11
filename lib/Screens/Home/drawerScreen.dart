@@ -1,5 +1,4 @@
-import 'package:blue_car/Screens/Chat/screens/chats/chats_screen.dart';
-import 'package:blue_car/Screens/Chat/screens/messages/message_screen.dart';
+import 'package:blue_car/page/chats_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
@@ -90,7 +89,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               TextButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChatsScreen()));
+                    MaterialPageRoute(builder: (context) => ChatsPage()));
               },
               child: const Text(
                           'Settings',

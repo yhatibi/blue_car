@@ -1,7 +1,7 @@
 import 'package:blue_car/Screens/Anuncio/create_edit_anuncio_screen.dart';
-import 'package:blue_car/Screens/Chat/screens/chats/chats_screen.dart';
 import 'package:blue_car/Screens/Home/homeScreen.dart';
 import 'package:blue_car/Screens/Perfil/profile_screen.dart';
+import 'package:blue_car/page/chats_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +70,7 @@ class _BottomBarState extends State<BottomBar> {
             case 'Inicio':
               return HomeScreen();
             case 'Chats':
-              return ChatsScreen();
+              return ChatsPage();
             case 'Perfil':
               return ProfileScreen();
             default:

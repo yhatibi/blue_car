@@ -1,6 +1,5 @@
 import 'package:blue_car/Screens/Anuncio/anuncio_screen.dart';
 import 'package:blue_car/Screens/Anuncio/create_edit_anuncio_screen.dart';
-import 'package:blue_car/Screens/Chat/screens/chats/chats_screen.dart';
 import 'package:blue_car/Screens/Perfil/components/profile_pic.dart';
 import 'package:blue_car/Screens/Perfil/profile_screen.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
@@ -46,8 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AnunciosModel anuncioNotifier = Provider.of<AnunciosModel>(context);
-
     return Scaffold(
         body: AnimatedContainer(
       transform: Matrix4.translationValues(xOffset, yOffset, 0)
@@ -232,7 +229,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.left,
-                                            overflow: TextOverflow.ellipsis,
+                                            overflow: TextOverflow.clip,
+                                            maxLines: 1,
+                                            softWrap: false,
                                           ),
                                           SizedBox(height: 5),
                                           Text(
@@ -241,17 +240,49 @@ class _HomeScreenState extends State<HomeScreen> {
                                             style: const TextStyle(
                                                 fontSize: 13.0,
                                                 color: Colors.black54),
-                                            overflow: TextOverflow.ellipsis,
+                                            overflow: TextOverflow.fade,
+                                            maxLines: 2,
+                                            softWrap: false,
                                             textAlign: TextAlign.left,
                                           ),
                                           SizedBox(height: 5),
-                                          Text(
-                                            "250.000km - 150cv - 2019 - Manual",
-                                            style: const TextStyle(
-                                                fontSize: 13.0,
-                                                color: Colors.black54),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
+                                          Wrap(
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black12,
+                                                  boxShadow: shadowList,
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                ),
+                                                child: Text(
+                                                  "250.000km",
+                                                  style: const TextStyle(
+                                                      fontSize: 13.0,
+                                                      color: Colors.black54),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black12,
+                                                  boxShadow: shadowList,
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                ),
+                                                child: Text(
+                                                  "2019",
+                                                  style: const TextStyle(
+                                                      fontSize: 13.0,
+                                                      color: Colors.black54),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+
+                                            ],
                                           ),
                                         ],
                                       ),
