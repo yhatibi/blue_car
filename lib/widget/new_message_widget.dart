@@ -4,10 +4,12 @@ import 'package:flutter/services.dart';
 
 class NewMessageWidget extends StatefulWidget {
   final String idUser;
+  final String idAnuncio;
+  final String chatRoomID;
 
   const NewMessageWidget({
     @required this.idUser,
-    Key key,
+    Key key, this.idAnuncio,this.chatRoomID,
   }) : super(key: key);
 
   @override
@@ -16,14 +18,14 @@ class NewMessageWidget extends StatefulWidget {
 
 class _NewMessageWidgetState extends State<NewMessageWidget> {
   final _controller = TextEditingController();
-  String chatRoomID;
   String message = '';
 
   void sendMessage() async {
     FocusScope.of(context).unfocus();
 
-    chatRoomID = await createChatRoom(widget.idUser);
+    var chatRoomID = await createChatRoom(widget.idUser, message, widget.idAnuncio);
     print('ChatRoomid: $chatRoomID' );
+
     // await uploadMessage(widget.idUser);
 
     _controller.clear();
@@ -71,4 +73,9 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
       ],
     ),
   );
+  @override
+  bool operator ==(Object other) {
+    // TODO: implement ==
+    return super == other;
+  }
 }

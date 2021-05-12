@@ -26,9 +26,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
   @override
   Widget build(BuildContext context) {
     AnunciosModel anuncioNotifier = Provider.of<AnunciosModel>(context);
-    print(anuncioNotifier.actualAnuncio.titulo);
-    print(auth.currentUser.uid);
-    print(anuncioNotifier.actualAnuncio.creador);
+
     var now = DateTime.now();
 
     final user = new u.User(
@@ -241,7 +239,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                       child: RaisedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ChatPage(idUser: anuncioNotifier.actualAnuncio.creador),
+                            builder: (context) => ChatPage(idUser: anuncioNotifier.actualAnuncio.creador, idAnuncio: anuncioNotifier.actualAnuncio.id),
                           ));
                         },
                         shape: RoundedRectangleBorder(

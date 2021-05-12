@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
   final String idUser;
+  final String idAnuncio;
 
   const ChatPage({
-    Key key, this.idUser,
+    Key key, this.idUser, this.idAnuncio,
   }) : super(key: key);
 
   @override
@@ -34,10 +35,10 @@ class _ChatPageState extends State<ChatPage> {
                   topRight: Radius.circular(25),
                 ),
               ),
-              // child: MessagesWidget(idUser: widget.user.idUser, idAnuncio: widget.idAnuncio),
+              child: MessagesWidget(idChatRoom: NewMessageWidget(idUser: widget.idUser, idAnuncio: widget.idAnuncio).chatRoomID),
             ),
           ),
-          NewMessageWidget(idUser: widget.idUser)
+          NewMessageWidget(idUser: widget.idUser, idAnuncio: widget.idAnuncio)
         ],
       ),
     ),

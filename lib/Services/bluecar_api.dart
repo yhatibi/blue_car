@@ -3,6 +3,7 @@ import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import '../data.dart';
 import '../utils.dart';
 import 'package:blue_car/model/message.dart';
@@ -36,29 +37,73 @@ Stream<List<User>> getUsers() => FirebaseFirestore.instance
     .snapshots()
     .transform(Utils.transformer(User.fromJson));
 
+Future createChatRoom(String idUser, String message, String idAnuncio) async {
+  String idChatRoom;
+  int contador = 0;
+  bool chatRoomWhileDone = false;
 
-Future createChatRoom(String idUser) async {
-  var _randomId = FirebaseFirestore.instance.collection('').id;
-  print(_randomId);
-  // final refChatRoom = FirebaseFirestore.instance.collection('chats/$idUser');
-  // String refID = refChatRoom.id;
-  // print(refID);
-  // final addChatIdUser =
-  //     FirebaseFirestore.instance.collection('users/$idUser/chats/$refID');
-  //
-  // await addChatIdUser
-  //     .add({
-  //       'name': idUser,
-  //     })
-  //     .then((value) => print("Added!"))
-  //     .catchError((error) => print("Failed to add : $error"));
+  //Problemas soulcionas con el bucle y el while: Boton CHATEAR no vuelve a crear una chatroom si no que utiliza ya las creadas anteriormente
+  while (chatRoomWhileDone != true) {
+    print(idAnuncio);
+    try {
+      await FirebaseFirestore.instance
+          .doc("users/$myId/chats/$idAnuncio")
+          .get()
+          .then((doc) async {
+        if (doc.exists) {
+          print('chat room existe');
+          uploadMessage(myId, message, idAnuncio);
+          chatRoomWhileDone = true;
+        } else {
+            await FirebaseFirestore.instance
+                .doc("users/$idUser/chats/$idAnuncio")
+                .get()
+                .then((doc) async {
+              if (doc.exists) {
+                print('chat room existe de parte del creador del anuncio');
+              } else {
+                print('no existe chat room');
+                await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio)
+                    .set({
+                      'name': idUser,
+                      'urlPhoto': idUser,
+                      'lastMessage': message,
+                      'timeLastMessage': DateTime.now(),
+                    })
+                    .then((value) => FirebaseFirestore.instance.collection('users').doc(myId).collection('chats').doc(idAnuncio)
+                        .set({
+                          'name': idUser,
+                          'urlPhoto': idUser,
+                          'lastMessage': message,
+                          'timeLastMessage': DateTime.now(),
+                        }))
+                    .then((value) => print("Added!"))
+                    .catchError((error) => print("Failed to add : $error"))
+                    .then((value) => uploadMessage(idUser, message, idAnuncio));
+                chatRoomWhileDone = true;
+              }
+            });
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
 
-  // return refID;
+    if (chatRoomWhileDone == false) {
+      contador++;
+      idAnuncio += contador.toString();
+    }
+  }
+
+  return idChatRoom;
 }
 
-Future uploadMessage(String idUser, String message, String idChatRoom) async {
-  final refMessages =
-      FirebaseFirestore.instance.collection('chats/$idChatRoom/messages');
+Future uploadMessage(String idUser, String message, String idAnuncio) async {
+  print('Upload mensaje del anuncio $idAnuncio');
+  final refMessages = FirebaseFirestore.instance
+      .collection('chats')
+      .doc(idAnuncio)
+      .collection('messages');
 
   final newMessage = Message(
     idUser: myId,
@@ -68,11 +113,6 @@ Future uploadMessage(String idUser, String message, String idChatRoom) async {
     createdAt: DateTime.now(),
   );
   await refMessages.add(newMessage.toJson());
-
-  final refUsers = FirebaseFirestore.instance.collection('users');
-  await refUsers
-      .doc(idUser)
-      .update({UserField.lastMessageTime: DateTime.now()});
 }
 
 Stream<List<Message>> getMessages(String idChatRoom) =>
