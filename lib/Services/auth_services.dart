@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../data.dart';
+
 
 class AuthService {
   final FirebaseAuth _auth;
@@ -15,6 +17,9 @@ class AuthService {
   Stream<User> get authStateChanges => _auth.idTokenChanges();
 
   Future<String> logout() async {
+    myId = null;
+    myUsername = null;
+    myUrlAvatar = null;
     await FirebaseAuth.instance.signOut();
   }
 

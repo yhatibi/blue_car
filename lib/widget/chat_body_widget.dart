@@ -1,12 +1,13 @@
+import 'package:blue_car/model/chats_list.dart';
 import 'package:blue_car/model/user.dart';
 import 'package:blue_car/page/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class ChatBodyWidget extends StatelessWidget {
-  final List<User> users;
+  final List<ChatsList> chatsList;
 
   const ChatBodyWidget({
-    @required this.users,
+    @required this.chatsList,
     Key key,
   }) : super(key: key);
 
@@ -30,26 +31,26 @@ class ChatBodyWidget extends StatelessWidget {
   Widget buildChats() => ListView.separated(
     physics: BouncingScrollPhysics(),
     itemBuilder: (context, index) {
-      final user = users[index];
+      final chat = chatsList[index];
 
       return Container(
         margin: const EdgeInsets.only(bottom: 10, top: 10),
         child: ListTile(
-          onTap: () {
-            // Navigator.of(context).push(MaterialPageRoute(
-            //   builder: (context) => ChatPage(user: user),
-            // ));
-          },
+          // onTap: () {
+          //   Navigator.of(context).push(MaterialPageRoute(
+          //     builder: (context) => ChatPage(chat.id),
+          //   ));
+          // },
           leading: CircleAvatar(
             radius: 25,
-            backgroundImage: NetworkImage(user.urlAvatar),
+            // backgroundImage: NetworkImage(chat.urlPhoto),
           ),
-          title: Text(user.name),
+          title: Text(chat.name),
         ),
 
       );
     },
-    itemCount: users.length,
+    itemCount: chatsList.length,
     separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
 
   );

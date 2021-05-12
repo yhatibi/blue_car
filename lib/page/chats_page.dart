@@ -1,5 +1,6 @@
 import 'package:blue_car/Services/bluecar_api.dart';
-import 'package:blue_car/model/user.dart';
+import 'package:blue_car/model/chat_room.dart';
+import 'package:blue_car/model/chats_list.dart';
 import 'package:blue_car/widget/chat_body_widget.dart';
 import 'package:blue_car/widget/chat_header_widget.dart';
 
@@ -10,8 +11,8 @@ class ChatsPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: Colors.blue,
     body: SafeArea(
-      child: StreamBuilder<List<User>>(
-        stream: getUsers(),
+      child: StreamBuilder<List<ChatsList>>(
+        stream: getChatsList(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -21,15 +22,15 @@ class ChatsPage extends StatelessWidget {
                 print(snapshot.error);
                 return buildText('Something Went Wrong Try later');
               } else {
-                final users = snapshot.data;
+                final chatsList = snapshot.data;
 
-                if (users.isEmpty) {
+                if (chatsList.isEmpty) {
                   return buildText('No Users Found');
                 } else
                   return Column(
                     children: [
-                      ChatHeaderWidget(users: users),
-                      ChatBodyWidget(users: users)
+                      // ChatHeaderWidget(users: chatsList),
+                      ChatBodyWidget(chatsList: chatsList)
                     ],
                   );
               }

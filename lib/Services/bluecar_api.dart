@@ -32,11 +32,11 @@ Future<List<Anuncio>> getAnuncios() async {
   return _anuncioLista;
 }
 
-Stream<List<User>> getUsers() => FirebaseFirestore.instance
-    .collection('users/chats')
-    .orderBy(ChatsListField.lastMessageTime, descending: true)
+Stream<List<ChatsList>> getChatsList() => FirebaseFirestore.instance
+    .collection('users').doc(myId).collection('chats')
+    .orderBy(ChatsListField.timeLastMessage, descending: true)
     .snapshots()
-    .transform(Utils.transformer(User.fromJson));
+    .transform(Utils.transformer(ChatsList.fromJson));
 
 Future createChatRoom(String idUser, String message, String idAnuncio) async {
   String idChatRoom;
@@ -152,7 +152,7 @@ Future uploadMessage(String idUser, String message, String idAnuncio) async {
 Stream<List<Message>> getMessages(String idChatRoom) =>
     FirebaseFirestore.instance
         .collection('chats/$idChatRoom/messages')
-        .orderBy(ChatsListField.timeLastMessage, descending: true)
+        .orderBy(MessageField.createdAt, descending: true)
         .snapshots()
         .transform(Utils.transformer(Message.fromJson));
 
