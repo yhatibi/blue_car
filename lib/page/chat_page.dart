@@ -4,6 +4,8 @@ import 'package:blue_car/widget/new_message_widget.dart';
 import 'package:blue_car/widget/profile_header_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../data.dart';
+
 class ChatPage extends StatefulWidget {
   final String idUser;
   final String idAnuncio;
@@ -35,7 +37,7 @@ class _ChatPageState extends State<ChatPage> {
                   topRight: Radius.circular(25),
                 ),
               ),
-              child: MessagesWidget(idChatRoom: NewMessageWidget(idUser: widget.idUser, idAnuncio: widget.idAnuncio).chatRoomID),
+              child: MessagesWidget(idChatRoom: widget.idAnuncio+myId,),
             ),
           ),
           NewMessageWidget(idUser: widget.idUser, idAnuncio: widget.idAnuncio)

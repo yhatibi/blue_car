@@ -8,6 +8,7 @@ import '../data.dart';
 import '../utils.dart';
 import 'package:blue_car/model/message.dart';
 import 'package:blue_car/model/user.dart';
+import 'package:blue_car/model/chats_list.dart';
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
 
@@ -32,8 +33,8 @@ Future<List<Anuncio>> getAnuncios() async {
 }
 
 Stream<List<User>> getUsers() => FirebaseFirestore.instance
-    .collection('users')
-    .orderBy(UserField.lastMessageTime, descending: true)
+    .collection('users/chats')
+    .orderBy(ChatsListField.lastMessageTime, descending: true)
     .snapshots()
     .transform(Utils.transformer(User.fromJson));
 
@@ -43,66 +44,99 @@ Future createChatRoom(String idUser, String message, String idAnuncio) async {
   bool chatRoomWhileDone = false;
 
   //Problemas soulcionas con el bucle y el while: Boton CHATEAR no vuelve a crear una chatroom si no que utiliza ya las creadas anteriormente
-  while (chatRoomWhileDone != true) {
-    print(idAnuncio);
-    try {
-      await FirebaseFirestore.instance
-          .doc("users/$myId/chats/$idAnuncio")
-          .get()
-          .then((doc) async {
-        if (doc.exists) {
-          print('chat room existe');
-          uploadMessage(myId, message, idAnuncio);
-          chatRoomWhileDone = true;
-        } else {
-            await FirebaseFirestore.instance
-                .doc("users/$idUser/chats/$idAnuncio")
-                .get()
-                .then((doc) async {
-              if (doc.exists) {
-                print('chat room existe de parte del creador del anuncio');
-              } else {
-                print('no existe chat room');
-                await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio)
-                    .set({
-                      'name': idUser,
-                      'urlPhoto': idUser,
-                      'lastMessage': message,
-                      'timeLastMessage': DateTime.now(),
-                    })
-                    .then((value) => FirebaseFirestore.instance.collection('users').doc(myId).collection('chats').doc(idAnuncio)
-                        .set({
-                          'name': idUser,
-                          'urlPhoto': idUser,
-                          'lastMessage': message,
-                          'timeLastMessage': DateTime.now(),
-                        }))
-                    .then((value) => print("Added!"))
-                    .catchError((error) => print("Failed to add : $error"))
-                    .then((value) => uploadMessage(idUser, message, idAnuncio));
-                chatRoomWhileDone = true;
-              }
-            });
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
+  // while (chatRoomWhileDone != true) {
+  //   print(idAnuncio);
+  //   try {
+  //     await FirebaseFirestore.instance
+  //         .doc("users/$myId/chats/$idAnuncio")
+  //         .get()
+  //         .then((doc) async {
+  //       if (doc.exists) {
+  //         print('chat room existe');
+  //         uploadMessage(myId, message, idAnuncio);
+  //         chatRoomWhileDone = true;
+  //       } else {
+  //           await FirebaseFirestore.instance
+  //               .doc("users/$idUser/chats/$idAnuncio")
+  //               .get()
+  //               .then((doc) async {
+  //             if (doc.exists) {
+  //               print('chat room existe de parte del creador del anuncio');
+  //             } else {
+  //               print('no existe chat room');
+  //               await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio)
+  //                   .set({
+  //                     'name': idUser,
+  //                     'urlPhoto': idUser,
+  //                     'lastMessage': message,
+  //                     'timeLastMessage': DateTime.now(),
+  //                   })
+  //                   .then((value) => FirebaseFirestore.instance.collection('users').doc(myId).collection('chats').doc(idAnuncio)
+  //                       .set({
+  //                         'name': idUser,
+  //                         'urlPhoto': idUser,
+  //                         'lastMessage': message,
+  //                         'timeLastMessage': DateTime.now(),
+  //                       }))
+  //                   .then((value) => print("Added!"))
+  //                   .catchError((error) => print("Failed to add : $error"))
+  //                   .then((value) => uploadMessage(idUser, message, idAnuncio));
+  //               chatRoomWhileDone = true;
+  //             }
+  //           });
+  //       }
+  //     });
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //
+  //   if (chatRoomWhileDone == false) {
+  //     contador++;
+  //     idAnuncio += contador.toString();
+  //   }
+  // }
 
-    if (chatRoomWhileDone == false) {
-      contador++;
-      idAnuncio += contador.toString();
+
+  await FirebaseFirestore.instance
+      .doc("users/$myId/chats/$idAnuncio$myId")
+      .get()
+      .then((doc) async {
+    if (doc.exists) {
+      print('chat room existe, se envia solo el mensaje');
+      uploadMessage(myId, message, idAnuncio);
+    } else {
+      print('no existe chat room');
+      await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio+myId)
+          .set({
+        'name': idUser,
+        'urlPhoto': idUser,
+        'lastMessage': message,
+        'timeLastMessage': DateTime.now(),
+      })
+          .then((value) => FirebaseFirestore.instance.collection('users').doc(myId).collection('chats').doc(idAnuncio+myId)
+          .set({
+        'name': idUser,
+        'urlPhoto': idUser,
+        'lastMessage': message,
+        'timeLastMessage': DateTime.now(),
+      }))
+          .then((value) => print("Added!"))
+          .catchError((error) => print("Failed to add : $error"))
+          .then((value) => uploadMessage(myId, message, idAnuncio));
+      chatRoomWhileDone = true;
     }
-  }
+  });
+
 
   return idChatRoom;
 }
 
 Future uploadMessage(String idUser, String message, String idAnuncio) async {
   print('Upload mensaje del anuncio $idAnuncio');
+
   final refMessages = FirebaseFirestore.instance
       .collection('chats')
-      .doc(idAnuncio)
+      .doc(idAnuncio+myId)
       .collection('messages');
 
   final newMessage = Message(
@@ -118,7 +152,7 @@ Future uploadMessage(String idUser, String message, String idAnuncio) async {
 Stream<List<Message>> getMessages(String idChatRoom) =>
     FirebaseFirestore.instance
         .collection('chats/$idChatRoom/messages')
-        .orderBy(MessageField.createdAt, descending: true)
+        .orderBy(ChatsListField.timeLastMessage, descending: true)
         .snapshots()
         .transform(Utils.transformer(Message.fromJson));
 

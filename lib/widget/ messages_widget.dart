@@ -27,7 +27,7 @@ class MessagesWidget extends StatelessWidget {
                 final messages = snapshot.data;
 
                 return messages.isEmpty
-                    ? buildText('Say Hi..')
+                    ? buildText('Say Hi.. $idChatRoom')
                     : ListView.builder(
                         physics: BouncingScrollPhysics(),
                         reverse: true,
