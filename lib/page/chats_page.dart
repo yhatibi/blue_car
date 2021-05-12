@@ -1,4 +1,5 @@
 import 'package:blue_car/Services/bluecar_api.dart';
+import 'package:blue_car/data.dart';
 import 'package:blue_car/model/chat_room.dart';
 import 'package:blue_car/model/chats_list.dart';
 import 'package:blue_car/widget/chat_body_widget.dart';
@@ -30,7 +31,7 @@ class ChatsPage extends StatelessWidget {
                   return Column(
                     children: [
                       // ChatHeaderWidget(users: chatsList),
-                      ChatBodyWidget(chatsList: chatsList)
+                      ChatBodyWidget(chatsList: chatsList, myID: myId)
                     ],
                   );
               }

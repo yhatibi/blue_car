@@ -108,6 +108,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio) async {
       print('no existe chat room');
       await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio+myId)
           .set({
+        'idAnuncio': idAnuncio,
         'name': idUser,
         'urlPhoto': idUser,
         'lastMessage': message,
@@ -115,6 +116,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio) async {
       })
           .then((value) => FirebaseFirestore.instance.collection('users').doc(myId).collection('chats').doc(idAnuncio+myId)
           .set({
+        'idAnuncio': idAnuncio,
         'name': idUser,
         'urlPhoto': idUser,
         'lastMessage': message,
