@@ -1,5 +1,6 @@
 import 'package:blue_car/Screens/Chat/model/chats_list.dart';
 import 'package:blue_car/Screens/Chat/chat_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
@@ -33,13 +34,13 @@ class ChatBodyWidget extends StatelessWidget {
   Widget buildChats() => ListView.separated(
     physics: BouncingScrollPhysics(),
     itemBuilder: (context, index) {
-      final chat = chatsList[index];
+      var chat = chatsList[index];
       return Container(
         margin: const EdgeInsets.only(bottom: 10, top: 10),
         child: ListTile(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ChatPage(idUser: myID, idAnuncio: chat.idAnuncio,),
+              builder: (context) => ChatPage(idChat: chat.id),
             ));
           },
           leading: CircleAvatar(

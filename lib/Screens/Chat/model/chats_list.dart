@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
 import '../../../utils.dart';
@@ -13,6 +14,7 @@ class ChatsList {
   final String lastMessage;
   final String urlPhoto;
   final DateTime timeLastMessage;
+  final String id;
 
   const ChatsList({
     @required this.name,
@@ -20,6 +22,7 @@ class ChatsList {
     @required this.lastMessage,
     @required this.urlPhoto,
     @required this.timeLastMessage,
+    this.id
   });
 
   ChatsList copyWith({
@@ -43,6 +46,15 @@ class ChatsList {
     idAnuncio: json['idAnuncio'],
     urlPhoto: json['urlPhoto'],
     timeLastMessage: Utils.toDateTime(json['timeLastMessage']),
+  );
+
+  static ChatsList fromDoc(DocumentSnapshot doc) => ChatsList(
+    id: doc.id,
+    lastMessage: doc.data()['lastMessage'],
+    name: doc.data()['name'],
+    idAnuncio: doc.data()['idAnuncio'],
+    urlPhoto: doc.data()['urlPhoto'],
+    timeLastMessage: Utils.toDateTime(doc.data()['timeLastMessage']),
   );
 
   Map<String, dynamic> toJson() => {

@@ -69,7 +69,7 @@ class MyAnunciosBodyWidget extends StatelessWidget {
                                       dialogType: DialogType.ERROR,
                                       animType: AnimType.BOTTOMSLIDE,
                                       title: 'Eliminar Anuncio?',
-                                      desc: 'El anuncio anuncio se elminiará permanentemente.',
+                                      desc: 'El anuncio se elminiará permanentemente.',
                                       btnOkText : 'Eliminar!',
                                       btnCancelText : 'Cancelar',
                                       showCloseIcon: true,

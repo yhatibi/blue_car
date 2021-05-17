@@ -8,10 +8,14 @@ import '../../data.dart';
 class ChatPage extends StatefulWidget {
   final String idUser;
   final String idAnuncio;
+  final String idChat;
 
   const ChatPage({
-    Key key, this.idUser, this.idAnuncio,
+    Key key, this.idUser, this.idAnuncio, this.idChat,
   }) : super(key: key);
+
+
+
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -36,7 +40,7 @@ class _ChatPageState extends State<ChatPage> {
                   topRight: Radius.circular(25),
                 ),
               ),
-              child: MessagesWidget(idChatRoom: widget.idAnuncio+myId,),
+              child: MessagesWidget(idChatRoom: widget.idChat ?? widget.idAnuncio+myId,),
             ),
           ),
           NewMessageWidget(idUser: widget.idUser, idAnuncio: widget.idAnuncio)
