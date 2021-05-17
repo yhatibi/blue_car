@@ -1,4 +1,5 @@
-import 'package:blue_car/Screens/Perfil/edit_profile.dart';
+import 'file:///C:/Users/Yasin/AndroidStudioProjects/blue_car/lib/Screens/Perfil/edit_profile/edit_profile.dart';
+import 'package:blue_car/Screens/Perfil/my_anuncios/my_anucnios.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +20,14 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-
           Container(
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
               boxShadow: [
-                BoxShadow(blurRadius: 30, color: Colors.black38, spreadRadius: 0)
+                BoxShadow(
+                    blurRadius: 30, color: Colors.black38, spreadRadius: 0)
               ],
               border: new Border.all(
                 color: Colors.blue,
@@ -55,7 +56,10 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Mis Anuncios",
             icon: "assets/icons/User Icon.svg",
-            press: () => {},
+            press: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyAnuncios()))
+            },
           ),
           ProfileMenu(
             text: "Configuración",

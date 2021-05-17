@@ -8,6 +8,7 @@ import '../data.dart';
 import '../utils.dart';
 import 'package:blue_car/model/message.dart';
 import 'package:blue_car/model/user.dart';
+import 'package:blue_car/models/anuncios_list.dart';
 import 'package:blue_car/model/chats_list.dart';
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
@@ -32,11 +33,35 @@ Future<List<Anuncio>> getAnuncios() async {
   return _anuncioLista;
 }
 
+
+
+Future<void> eliminarAnuncio(String idAnuncio) {
+  FirebaseFirestore.instance.collection('Anuncios')
+      .doc(idAnuncio)
+      .delete()
+      .then((value) => print("Anuncio eliminado correctamente!"))
+      .catchError((error) => print("Error al eliminar anuncio: $error"));
+}
+
+
 Stream<List<ChatsList>> getChatsList() => FirebaseFirestore.instance
     .collection('users').doc(myId).collection('chats')
     .orderBy(ChatsListField.timeLastMessage, descending: true)
     .snapshots()
     .transform(Utils.transformer(ChatsList.fromJson));
+
+Stream<List<AnunciosList>> getAnunciosList() => FirebaseFirestore.instance
+    .collection('Anuncios')
+    .orderBy(AnunciosListField.createdAt, descending: true)
+    .snapshots()
+    .transform(Utils.transformer(AnunciosList.fromJson));
+
+Stream<List<AnunciosList>> getConcretAnunciosList(String idUser) => FirebaseFirestore.instance
+    .collection('Anuncios')
+    .where('creador', isEqualTo: idUser)
+    .orderBy(AnunciosListField.createdAt, descending: true)
+    .snapshots()
+    .transform(Utils.transformer(AnunciosList.fromJson));
 
 Future createChatRoom(String idUser, String message, String idAnuncio) async {
   String idChatRoom;

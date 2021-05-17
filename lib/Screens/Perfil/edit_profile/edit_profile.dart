@@ -9,8 +9,8 @@ import 'package:blue_car/Services/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme.dart';
-import 'components/profile_pic.dart';
+import '../../../theme.dart';
+import '../components/profile_pic.dart';
 
 class SettingsUI extends StatelessWidget {
   @override
