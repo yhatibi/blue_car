@@ -1,5 +1,4 @@
-import 'package:blue_car/model/user.dart';
-import 'package:blue_car/page/chat_page.dart';
+import 'package:blue_car/Screens/Chat/model/user.dart';
 import 'package:flutter/material.dart';
 
 class ChatHeaderWidget extends StatelessWidget {

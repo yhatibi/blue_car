@@ -59,8 +59,7 @@ class _LoginPageState extends State<LoginPage>
               Padding(
                 padding: const EdgeInsets.only(top: 75.0),
                 child: Image(
-                    height:
-                        MediaQuery.of(context).size.height > 800 ? 191.0 : 100,
+                    height: 100,
                     fit: BoxFit.fill,
                     image: const AssetImage('assets/images/loginLogo.png'), color: Colors.white),
               ),
@@ -155,6 +154,8 @@ class _LoginPageState extends State<LoginPage>
       ),
     );
   }
+
+
 
   void _onSignInButtonPress() {
     _pageController.animateToPage(0,

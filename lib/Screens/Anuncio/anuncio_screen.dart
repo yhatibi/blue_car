@@ -1,7 +1,5 @@
-import 'package:blue_car/model/user.dart';
-import 'package:blue_car/model/user.dart';
-import 'package:blue_car/model/user.dart';
-import 'package:blue_car/page/chat_page.dart';
+
+import 'package:blue_car/Screens/Chat/chat_page.dart';
 
 import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
@@ -13,7 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../data.dart';
 import '../../theme.dart';
-import 'package:blue_car/model/user.dart' as u;
+import 'package:blue_car/Screens/Chat/model/user.dart' as u;
 
 class AnuncioScreen extends StatefulWidget {
   @override

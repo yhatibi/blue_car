@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import '../utils.dart';
+import '../../../utils.dart';
 
 
 class ChatsListField {

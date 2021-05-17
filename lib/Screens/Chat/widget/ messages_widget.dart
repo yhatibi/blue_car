@@ -1,9 +1,9 @@
+import 'package:blue_car/Screens/Chat/model/message.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
-import 'package:blue_car/model/message.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data.dart';
 import ' message_widget.dart';
-import '../data.dart';
 
 class MessagesWidget extends StatelessWidget {
   final String idChatRoom;

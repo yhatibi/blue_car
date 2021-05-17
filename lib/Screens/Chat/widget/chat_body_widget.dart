@@ -1,6 +1,5 @@
-import 'package:blue_car/model/chats_list.dart';
-import 'package:blue_car/model/user.dart';
-import 'package:blue_car/page/chat_page.dart';
+import 'package:blue_car/Screens/Chat/model/chats_list.dart';
+import 'package:blue_car/Screens/Chat/chat_page.dart';
 import 'package:flutter/material.dart';
 
 

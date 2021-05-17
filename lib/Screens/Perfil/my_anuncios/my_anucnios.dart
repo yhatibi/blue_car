@@ -147,6 +147,8 @@ class _MyAnunciosState extends State<MyAnuncios> {
     );
   }
 
+
+
   Widget buildText(String text) => Center(
         child: Text(
           text,

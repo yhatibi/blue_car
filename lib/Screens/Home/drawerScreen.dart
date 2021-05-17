@@ -1,4 +1,4 @@
-import 'package:blue_car/page/chats_page.dart';
+import 'package:blue_car/Screens/Chat/chats_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';

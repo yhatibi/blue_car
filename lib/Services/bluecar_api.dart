@@ -1,17 +1,11 @@
-import 'package:blue_car/model/chat_room.dart';
+import 'package:blue_car/Screens/Chat/model/chats_list.dart';
+import 'package:blue_car/Screens/Chat/model/message.dart';
+import 'package:blue_car/Screens/Chat/model/user.dart';
 import 'package:blue_car/models/anuncio.dart';
-import 'package:blue_car/notifier/anuncio_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import '../data.dart';
 import '../utils.dart';
-import 'package:blue_car/model/message.dart';
-import 'package:blue_car/model/user.dart';
 import 'package:blue_car/models/anuncios_list.dart';
-import 'package:blue_car/model/chats_list.dart';
-import 'package:path/path.dart' as path;
-import 'package:uuid/uuid.dart';
 
 Future<List<Anuncio>> getAnuncios() async {
   final firestoreInstance = FirebaseFirestore.instance;

@@ -1,11 +1,12 @@
+import 'package:blue_car/Screens/Chat/widget/chat_body_widget.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
 import 'package:blue_car/data.dart';
-import 'package:blue_car/model/chat_room.dart';
-import 'package:blue_car/model/chats_list.dart';
-import 'package:blue_car/widget/chat_body_widget.dart';
-import 'package:blue_car/widget/chat_header_widget.dart';
+
+
 
 import 'package:flutter/material.dart';
+
+import 'model/chats_list.dart';
 
 class ChatsPage extends StatelessWidget {
   @override

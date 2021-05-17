@@ -1,10 +1,9 @@
-import 'package:blue_car/model/user.dart';
-import 'package:blue_car/widget/%20messages_widget.dart';
-import 'package:blue_car/widget/new_message_widget.dart';
-import 'package:blue_car/widget/profile_header_widget.dart';
+import 'package:blue_car/Screens/Chat/widget/%20messages_widget.dart';
+import 'package:blue_car/Screens/Chat/widget/new_message_widget.dart';
+import 'package:blue_car/Screens/Chat/widget/profile_header_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../data.dart';
+import '../../data.dart';
 
 class ChatPage extends StatefulWidget {
   final String idUser;

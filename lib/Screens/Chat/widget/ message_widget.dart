@@ -1,4 +1,4 @@
-import 'package:blue_car/model/message.dart';
+import 'package:blue_car/Screens/Chat/model/message.dart';
 import 'package:flutter/material.dart';
 
 class MessageWidget extends StatelessWidget {

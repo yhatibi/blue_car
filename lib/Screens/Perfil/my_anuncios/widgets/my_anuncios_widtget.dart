@@ -1,11 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:blue_car/Screens/Anuncio/anuncio_screen.dart';
+import 'package:blue_car/Screens/Perfil/my_anuncios/my_anucnios.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
-import 'package:blue_car/model/chats_list.dart';
-import 'package:blue_car/model/user.dart';
 import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/models/anuncios_list.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
-import 'package:blue_car/page/chat_page.dart';
+import 'package:blue_car/Screens/Chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -64,8 +64,22 @@ class MyAnunciosBodyWidget extends StatelessWidget {
                                 flex: 1,
                                 child: GestureDetector(
                                   onTap: () {
-                                    eliminarAnuncio(anuncio.id);
-                                  },
+                                    AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.ERROR,
+                                      animType: AnimType.BOTTOMSLIDE,
+                                      title: 'Eliminar Anuncio?',
+                                      desc: 'El anuncio anuncio se elminiará permanentemente.',
+                                      btnOkText : 'Eliminar!',
+                                      btnCancelText : 'Cancelar',
+                                      showCloseIcon: true,
+                                      btnCancelOnPress: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      btnOkOnPress: () {
+                                        eliminarAnuncio(anuncio.id);
+                                      },
+                                    )..show();                                  },
                                   child: Container(
                                     padding: EdgeInsets.all(15),
                                     color: Colors.redAccent,
@@ -173,4 +187,9 @@ class MyAnunciosBodyWidget extends StatelessWidget {
         separatorBuilder: (BuildContext context, int index) =>
             Divider(height: 1),
       );
+}
+
+Widget confirmDelete(String idAnuncio) {
+
+
 }

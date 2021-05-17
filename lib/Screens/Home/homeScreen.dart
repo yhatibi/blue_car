@@ -185,6 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Consumer<AnunciosModel>(
               builder: (context, anunciosModel, child) => ListView.separated(
+                physics: NeverScrollableScrollPhysics(), // <-- this will disable scroll
                 shrinkWrap: true,
                 itemCount: anunciosModel.anuncioLista.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -377,9 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Text("No hay Anuncios!"),
-            SizedBox(
-              height: 600,
-            ),
+
           ],
         ),
       ),

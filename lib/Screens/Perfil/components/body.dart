@@ -1,4 +1,4 @@
-import 'file:///C:/Users/Yasin/AndroidStudioProjects/blue_car/lib/Screens/Perfil/edit_profile/edit_profile.dart';
+import 'package:blue_car/Screens/Perfil/edit_profile/edit_profile.dart';
 import 'package:blue_car/Screens/Perfil/my_anuncios/my_anucnios.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
