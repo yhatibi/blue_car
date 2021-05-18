@@ -10,6 +10,7 @@ class ChatsListField {
 
 class ChatsList {
   final String name;
+  final String otherIdUser;
   final String idAnuncio;
   final String lastMessage;
   final String urlPhoto;
@@ -18,6 +19,7 @@ class ChatsList {
 
   const ChatsList({
     @required this.name,
+    @required this.otherIdUser,
     @required this.idAnuncio,
     @required this.lastMessage,
     @required this.urlPhoto,
@@ -27,6 +29,7 @@ class ChatsList {
 
   ChatsList copyWith({
     String lastMessage,
+    String otherIdUser,
     String name,
     String idAnuncio,
     String urlPhoto,
@@ -34,6 +37,7 @@ class ChatsList {
   }) =>
       ChatsList(
         lastMessage: lastMessage ?? this.lastMessage,
+        otherIdUser: otherIdUser ?? this.otherIdUser,
         name: name ?? this.name,
         idAnuncio: idAnuncio ?? this.idAnuncio,
         urlPhoto: urlPhoto ?? this.urlPhoto,
@@ -43,6 +47,7 @@ class ChatsList {
   static ChatsList fromJson(Map<String, dynamic> json) => ChatsList(
     lastMessage: json['lastMessage'],
     name: json['name'],
+    otherIdUser: json['otherIdUser'],
     idAnuncio: json['idAnuncio'],
     urlPhoto: json['urlPhoto'],
     timeLastMessage: Utils.toDateTime(json['timeLastMessage']),
@@ -51,6 +56,7 @@ class ChatsList {
   static ChatsList fromDoc(DocumentSnapshot doc) => ChatsList(
     id: doc.id,
     lastMessage: doc.data()['lastMessage'],
+    otherIdUser: doc.data()['otherIdUser'],
     name: doc.data()['name'],
     idAnuncio: doc.data()['idAnuncio'],
     urlPhoto: doc.data()['urlPhoto'],
@@ -59,6 +65,7 @@ class ChatsList {
 
   Map<String, dynamic> toJson() => {
     'lastMessage': lastMessage,
+    'otherIdUser': otherIdUser,
     'name': name,
     'idAnuncio': idAnuncio,
     'urlPhoto': urlPhoto,

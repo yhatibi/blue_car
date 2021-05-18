@@ -66,20 +66,23 @@ class MyAnunciosBodyWidget extends StatelessWidget {
                                   onTap: () {
                                     AwesomeDialog(
                                       context: context,
+                                      useRootNavigator: true,
                                       dialogType: DialogType.ERROR,
                                       animType: AnimType.BOTTOMSLIDE,
                                       title: 'Eliminar Anuncio?',
-                                      desc: 'El anuncio se elminiará permanentemente.',
-                                      btnOkText : 'Eliminar!',
-                                      btnCancelText : 'Cancelar',
+                                      desc:
+                                          'El anuncio se elminiará permanentemente.',
+                                      btnOkText: 'Eliminar!',
+                                      btnCancelText: 'Cancelar',
                                       showCloseIcon: true,
                                       btnCancelOnPress: () {
-                                        Navigator.of(context).pop();
+
                                       },
                                       btnOkOnPress: () {
                                         eliminarAnuncio(anuncio.id);
                                       },
-                                    )..show();                                  },
+                                    )..show();
+                                  },
                                   child: Container(
                                     padding: EdgeInsets.all(15),
                                     color: Colors.redAccent,
@@ -189,7 +192,4 @@ class MyAnunciosBodyWidget extends StatelessWidget {
       );
 }
 
-Widget confirmDelete(String idAnuncio) {
-
-
-}
+Widget confirmDelete(String idAnuncio) {}

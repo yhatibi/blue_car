@@ -85,6 +85,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio, String id
       await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio+myId)
           .set({
         'idAnuncio': idAnuncio,
+        'otherIdUser': idUser,
         'name': idUser,
         'urlPhoto': idUser,
         'lastMessage': message,
@@ -93,6 +94,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio, String id
           .then((value) => FirebaseFirestore.instance.collection('users').doc(myId).collection('chats').doc(idAnuncio+myId)
           .set({
         'idAnuncio': idAnuncio,
+        'otherIdUser': idUser,
         'name': idUser,
         'urlPhoto': idUser,
         'lastMessage': message,
