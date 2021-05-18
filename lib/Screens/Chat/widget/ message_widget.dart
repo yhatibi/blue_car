@@ -20,10 +20,10 @@ class MessageWidget extends StatelessWidget {
       children: <Widget>[
         if (!isMe)
           CircleAvatar(
-              radius: 16, backgroundImage: NetworkImage(message.urlAvatar)),
+              radius: 25, backgroundImage: NetworkImage(message.urlAvatar)),
         Container(
           padding: EdgeInsets.all(16),
-          margin: EdgeInsets.all(16),
+          margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
           constraints: BoxConstraints(maxWidth: 140),
           decoration: BoxDecoration(
             color: isMe ? Colors.grey[100] : Theme.of(context).accentColor,
@@ -43,7 +43,7 @@ class MessageWidget extends StatelessWidget {
     children: <Widget>[
       Text(
         message.message,
-        style: TextStyle(color: isMe ? Colors.black : Colors.white),
+        style: TextStyle(color: isMe ? Colors.black : Colors.white, fontSize: 16),
         textAlign: isMe ? TextAlign.end : TextAlign.start,
       ),
     ],

@@ -22,12 +22,12 @@ class MessagesWidget extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             default:
               if (snapshot.hasError) {
-                return buildText('Something Went Wrong Try later');
+                return buildText('Algo fue mal, vuelve a intentarlo mas tarde :(');
               } else {
                 final messages = snapshot.data;
 
                 return messages.isEmpty
-                    ? buildText('Say Hi.. $idChatRoom')
+                    ? buildText('Dile hola! Este coche puede ser tuyo...')
                     : ListView.builder(
                         physics: BouncingScrollPhysics(),
                         reverse: true,

@@ -65,16 +65,15 @@ class _MyAnunciosState extends State<MyAnuncios> {
                     children: [
                       Container(
                           width: MediaQuery.of(context).size.width * 1,
-                          padding: EdgeInsets.only(
-                            bottom: 15,
-                          ),
+                          padding: EdgeInsets.only(bottom: 10),
+                          margin: EdgeInsets.only(bottom: 20),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(30.0),
                                 bottomRight: Radius.circular(30.0)),
                             boxShadow: <BoxShadow>[
                               BoxShadow(
-                                color: Colors.black54,
+                                color: Colors.black26,
                                 offset: Offset(1.0, 4.0),
                                 blurRadius: 30.0,
                               ),
@@ -114,7 +113,7 @@ class _MyAnunciosState extends State<MyAnuncios> {
                                   ),
                                   GradientIcon(
                                     Icons.my_library_books_rounded,
-                                    30.0,
+                                    27.0,
                                     LinearGradient(
                                       colors: <Color>[
                                         CustomTheme.loginGradientEnd,
@@ -130,12 +129,14 @@ class _MyAnunciosState extends State<MyAnuncios> {
                                   Text(
                                     "Mis Anuncios",
                                     style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w500,
                                         color: Colors.black87,
-                                        fontSize: 20),
+                                        fontSize: 18),
                                   ),
                                 ],
-                              ))),
+                              )
+                          )
+                      ),
                       MyAnunciosBodyWidget(anunciosList: anunciosList),
                     ],
                   );

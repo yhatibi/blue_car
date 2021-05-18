@@ -17,16 +17,15 @@ class ChatBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Expanded(
     child: Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFF5F6F9),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25),
           topRight: Radius.circular(25),
         ),
       ),
       child: buildChats(),
-
 
     ),
   );
@@ -36,7 +35,12 @@ class ChatBodyWidget extends StatelessWidget {
     itemBuilder: (context, index) {
       var chat = chatsList[index];
       return Container(
-        margin: const EdgeInsets.only(bottom: 10, top: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        padding: const EdgeInsets.only(bottom: 10, top: 10),
+        margin: const EdgeInsets.only(top: 5),
         child: ListTile(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -53,7 +57,7 @@ class ChatBodyWidget extends StatelessWidget {
       );
     },
     itemCount: chatsList.length,
-    separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
+    separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.transparent),
 
   );
 }

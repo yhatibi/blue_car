@@ -57,19 +57,18 @@ Stream<List<AnunciosList>> getConcretAnunciosList(String idUser) => FirebaseFire
     .snapshots()
     .transform(Utils.transformer(AnunciosList.fromJson));
 
-Future createChatRoom(String idUser, String message, String idAnuncio) async {
-  String idChatRoom;
+Future createChatRoom(String idUser, String message, String idAnuncio, String idChatRoom) async {
   int contador = 0;
   bool chatRoomWhileDone = false;
-
+  print(idChatRoom);
 
   await FirebaseFirestore.instance
-      .doc("users/$myId/chats/$idAnuncio$myId")
+      .doc("users/$myId/chats/$idChatRoom")
       .get()
       .then((doc) async {
     if (doc.exists) {
       print('chat room existe, se envia solo el mensaje');
-      uploadMessage(myId, message, idAnuncio);
+      uploadMessage(myId, message, idChatRoom);
     } else {
       print('no existe chat room');
       await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio+myId)
@@ -99,12 +98,12 @@ Future createChatRoom(String idUser, String message, String idAnuncio) async {
   return idChatRoom;
 }
 
-Future uploadMessage(String idUser, String message, String idAnuncio) async {
-  print('Upload mensaje del anuncio $idAnuncio');
+Future uploadMessage(String idUser, String message, String idChatRoom) async {
+  print('Upload mensaje del anuncio $idChatRoom');
 
   final refMessages = FirebaseFirestore.instance
       .collection('chats')
-      .doc(idAnuncio+myId)
+      .doc(idChatRoom)
       .collection('messages');
 
   final newMessage = Message(

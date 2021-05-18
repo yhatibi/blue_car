@@ -183,7 +183,8 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                     IconButton(
                         icon: Icon(Icons.share),
                         color: Colors.white,
-                        onPressed: () {})
+                        onPressed: () {}
+                        )
                   ],
                 ),
               ],
