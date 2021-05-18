@@ -60,15 +60,26 @@ Stream<List<AnunciosList>> getConcretAnunciosList(String idUser) => FirebaseFire
 Future createChatRoom(String idUser, String message, String idAnuncio, String idChatRoom) async {
   int contador = 0;
   bool chatRoomWhileDone = false;
-  print(idChatRoom);
+  print('Chat Room id: $idChatRoom');
 
   await FirebaseFirestore.instance
       .doc("users/$myId/chats/$idChatRoom")
       .get()
       .then((doc) async {
     if (doc.exists) {
-      print('chat room existe, se envia solo el mensaje');
-      uploadMessage(myId, message, idChatRoom);
+      print('chat room existe, se envia solo el mensaje (idChatRoom: $idChatRoom, MyId: $myId, UserID: $idUser)');
+      uploadMessage(myId, message, idChatRoom).then((value) async =>
+      await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idChatRoom)
+          .update({
+        'lastMessage': message,
+        'timeLastMessage': DateTime.now(),
+      })
+          .then((value) => FirebaseFirestore.instance.collection('users').doc(myId).collection('chats').doc(idChatRoom)
+          .update({
+        'lastMessage': message,
+        'timeLastMessage': DateTime.now(),
+      })));
+
     } else {
       print('no existe chat room');
       await FirebaseFirestore.instance.collection('users').doc(idUser).collection('chats').doc(idAnuncio+myId)
@@ -89,7 +100,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio, String id
       }))
           .then((value) => print("Added!"))
           .catchError((error) => print("Failed to add : $error"))
-          .then((value) => uploadMessage(myId, message, idAnuncio));
+          .then((value) => uploadMessage(myId, message, idAnuncio+myId));
       chatRoomWhileDone = true;
     }
   });
