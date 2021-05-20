@@ -8,10 +8,11 @@ class NewMessageWidget extends StatefulWidget {
   final String idUser;
   final String idAnuncio;
   final String chatRoomID;
+  final String tituloAnuncio;
 
   const NewMessageWidget({
      this.idUser,
-    Key key, this.idAnuncio,this.chatRoomID,
+    Key key, this.idAnuncio,this.chatRoomID, this.tituloAnuncio,
   }) : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
   void sendMessage() async {
     FocusScope.of(context).unfocus();
-    await createChatRoom(widget.idUser, message, widget.idAnuncio, widget.chatRoomID);
+    await createChatRoom(widget.idUser, message, widget.idAnuncio, widget.chatRoomID, widget.tituloAnuncio);
     _controller.clear();
   }
 

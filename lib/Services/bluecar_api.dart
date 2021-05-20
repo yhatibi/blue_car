@@ -50,6 +50,7 @@ Stream<List<AnunciosList>> getAnunciosList() => FirebaseFirestore.instance
     .snapshots()
     .transform(Utils.transformer(AnunciosList.fromJson));
 
+
 Stream<List<AnunciosList>> getConcretAnunciosList(String idUser) => FirebaseFirestore.instance
     .collection('Anuncios')
     .where('creador', isEqualTo: idUser)
@@ -57,7 +58,7 @@ Stream<List<AnunciosList>> getConcretAnunciosList(String idUser) => FirebaseFire
     .snapshots()
     .transform(Utils.transformer(AnunciosList.fromJson));
 
-Future createChatRoom(String idUser, String message, String idAnuncio, String idChatRoom) async {
+Future createChatRoom(String idUser, String message, String idAnuncio, String idChatRoom, String tituloAnuncio) async {
   int contador = 0;
   bool chatRoomWhileDone = false;
   print('Chat Room id: $idChatRoom');
@@ -86,7 +87,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio, String id
           .set({
         'idAnuncio': idAnuncio,
         'otherIdUser': idUser,
-        'name': idUser,
+        'name': tituloAnuncio,
         'urlPhoto': idUser,
         'lastMessage': message,
         'timeLastMessage': DateTime.now(),
@@ -95,7 +96,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio, String id
           .set({
         'idAnuncio': idAnuncio,
         'otherIdUser': idUser,
-        'name': idUser,
+        'name': tituloAnuncio,
         'urlPhoto': idUser,
         'lastMessage': message,
         'timeLastMessage': DateTime.now(),

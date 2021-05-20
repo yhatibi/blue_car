@@ -10,9 +10,10 @@ class ChatPage extends StatefulWidget {
   final String idUser;
   final String idAnuncio;
   final String idChat;
+  final String tituloAnuncio;
 
   const ChatPage({
-    Key key, this.idUser, this.idAnuncio, this.idChat,
+    Key key, this.idUser, this.idAnuncio, this.idChat, this.tituloAnuncio,
   }) : super(key: key);
 
 
@@ -54,7 +55,7 @@ class _ChatPageState extends State<ChatPage> {
                 child: MessagesWidget(idChatRoom: widget.idChat ?? widget.idAnuncio+myId),
               ),
             ),
-            NewMessageWidget(chatRoomID: widget.idChat, idUser: widget.idUser, idAnuncio: widget.idAnuncio)
+            NewMessageWidget(chatRoomID: widget.idChat, idUser: widget.idUser, idAnuncio: widget.idAnuncio, tituloAnuncio: widget.tituloAnuncio)
           ],
         ),
       ),

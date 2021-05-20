@@ -238,7 +238,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                       child: RaisedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ChatPage(idUser: anuncioNotifier.actualAnuncio.creador, idAnuncio: anuncioNotifier.actualAnuncio.id),
+                            builder: (context) => ChatPage(idUser: anuncioNotifier.actualAnuncio.creador, idAnuncio: anuncioNotifier.actualAnuncio.id, tituloAnuncio: anuncioNotifier.actualAnuncio.titulo),
                           ));
                         },
                         shape: RoundedRectangleBorder(
