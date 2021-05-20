@@ -41,7 +41,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         child: Column(
           children: [
-            ProfileHeaderWidget(name: 'Hello'),
+            ProfileHeaderWidget(name: widget.tituloAnuncio),
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(10),

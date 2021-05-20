@@ -36,7 +36,7 @@ class ChatBodyWidget extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
-                    ChatPage(idChat: chat.id, idUser: chat.otherIdUser),
+                    ChatPage(idChat: chat.id, idUser: chat.otherIdUser, tituloAnuncio: chat.name),
               ));
             },
             child: Container(
