@@ -5,6 +5,7 @@ import 'package:blue_car/Screens/CrearAnuncio/model/image_upload_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 
 import '../../theme.dart';
 
@@ -14,37 +15,108 @@ class CrearAnuncioScreen extends StatefulWidget {
 }
 
 class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
-  List<Object> images;
-  Future<File> _imageFile;
+  List<Asset> images = <Asset>[];
+  String _error = 'No Error Dectected';
 
-  File _image;
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    setState(() {
-      images.add("Add Image");
-      images.add("Add Image");
-      images.add("Add Image");
-      images.add("Add Image");
-
-    });
   }
 
-  Future getImage(int i) async {
-    final pickedFile =
-        await ImagePicker().getImage(source: ImageSource.gallery);
+  Widget buildGridView() {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+          Asset asset = images[index];
 
-    setState(() {
-      if (pickedFile != null) {
-        images[i] = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
+          return Stack(
+            children: <Widget>[
+              Card(
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: AssetThumb(
+                  asset: asset,
+                  width: 300,
+                  height: 300,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                elevation: 2,
+                margin: EdgeInsets.all(5),
+              ),
+              Positioned(
+                right: 7,
+                top: 7,
+                child: InkWell(
+                  child: Icon(
+                    Icons.delete_forever,
+                    size: 22,
+                    color: Colors.redAccent,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      images.removeAt(index);
+                    });
+                  },
+                ),
+              ),
+            ],
+          );
+
+
+
+        }
+    );
   }
 
-  RangeValues _values = const RangeValues(100, 600);
-  double distValue = 50.0;
+  Future<void> loadAssets() async {
+    List<Asset> resultList = <Asset>[];
+    String error = 'No Error Detected';
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 15,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(
+          takePhotoIcon: "chat",
+          doneButtonTitle: "Fatto",
+        ),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#abcdef",
+          actionBarTitle: "Example App",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    if(resultList.length > 0) {
+      setState(() {
+        images = resultList;
+        _error = error;
+      });
+    }
+  }
+
+  deleteImage(int i) async {
+
+  }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +149,47 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
                                 fontWeight: FontWeight.normal),
                           ),
                         ),
-                        Container(
-                          width: 500,
-                          height: 500,
-                          child: Expanded(
-                            child: buildGridView(),
-                          ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 3,
+                              child: GestureDetector(
+                                child: Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          CustomTheme.loginGradientEnd,
+                                          CustomTheme.loginGradientStart
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  width: 110,
+                                  height: 110,
+                                  child: Icon(
+                                    Icons.add_to_photos,
+                                    color: Colors.white,
+                                    size: 40,
+                                  ),
+                                ),
+                                onTap: () {
+                                  loadAssets();
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              flex: 8,
+                              child: Container(
+                                height: 120,
+                                width: 150,
+                                child: buildGridView(),
+                              ),
+                            )
+                          ],
                         ),
+
                         const SizedBox(
                           height: 8,
                         )
@@ -161,53 +267,6 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
           ],
         ),
       ),
-    );
-  }
-  Widget buildGridView() {
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 3,
-      childAspectRatio: 1,
-      children: List.generate(images.length, (index) {
-        if (images[index] is ImageUploadModel) {
-          File image = images[index];
-          return Card(
-            clipBehavior: Clip.antiAlias,
-            child: Stack(
-              children: <Widget>[
-                Image.file(
-                  image,
-                  width: 300,
-                  height: 300,
-                ),
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child: InkWell(
-                    child: Icon(
-                      Icons.remove_circle,
-                      size: 20,
-                      color: Colors.red,
-                    ),
-                    onTap: () {
-
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return Card(
-            child: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                getImage(index);
-              },
-            ),
-          );
-        }
-      }),
     );
   }
 
