@@ -2,6 +2,7 @@
 import 'package:blue_car/Screens/Chat/chat_page.dart';
 
 import 'package:blue_car/models/anuncio.dart';
+import 'package:blue_car/models/anuncios_list.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +15,11 @@ import '../../theme.dart';
 import 'package:blue_car/Screens/Chat/model/user.dart' as u;
 
 class AnuncioScreen extends StatefulWidget {
+
+  final AnunciosList anunciosList;
+
+  const AnuncioScreen ({ Key key, this.anunciosList }): super(key: key);
+
   @override
   _AnuncioScreenState createState() => _AnuncioScreenState();
 }
@@ -28,7 +34,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
     var now = DateTime.now();
 
     final user = new u.User(
-        idUser: anuncioNotifier.actualAnuncio.creador,
+        idUser: widget.anunciosList.creador,
         name: myUsername,
         urlAvatar: myUrlAvatar,
     lastMessageTime: now);
@@ -61,7 +67,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.50,
                       child: Text(
-                        anuncioNotifier.actualAnuncio.titulo,
+                        widget.anunciosList.titulo,
                         style: TextStyle(
                           color: Colors.black87,
                           fontSize: 18.0,
@@ -149,7 +155,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                   color: Colors.white,
                   padding: EdgeInsets.all(15),
                   child: Text(
-                    anuncioNotifier.actualAnuncio.descripcion,
+                    widget.anunciosList.descripcion,
                     style: TextStyle(
                       color: Colors.black87,
                       fontSize: 15.0,
@@ -173,9 +179,9 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                     }),
                 Row(
                   children: [
-                    if (anuncioNotifier.actualAnuncio.creador != null &&
+                    if (widget.anunciosList.creador != null &&
                         auth.currentUser.uid ==
-                            anuncioNotifier.actualAnuncio.creador)
+                            widget.anunciosList.creador)
                       IconButton(
                           icon: Icon(Icons.edit),
                           color: Colors.white,
@@ -238,7 +244,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                       child: RaisedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ChatPage(idUser: anuncioNotifier.actualAnuncio.creador, idAnuncio: anuncioNotifier.actualAnuncio.id, tituloAnuncio: anuncioNotifier.actualAnuncio.titulo),
+                            builder: (context) => ChatPage(idUser: widget.anunciosList.creador, idAnuncio: widget.anunciosList.id, tituloAnuncio: widget.anunciosList.titulo),
                           ));
                         },
                         shape: RoundedRectangleBorder(

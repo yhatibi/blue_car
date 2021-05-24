@@ -1,6 +1,7 @@
-import 'package:blue_car/Screens/Anuncio/create_edit_anuncio_screen.dart';
+import 'package:blue_car/Screens/CrearAnuncio/crear_anuncio_screen.dart';
 import 'package:blue_car/Screens/Home/homeScreen.dart';
 import 'package:blue_car/Screens/Perfil/profile_screen.dart';
+import 'package:blue_car/Screens/Favoritos/favoritos_screen.dart';
 import 'package:blue_car/Screens/Chat/chats_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,10 @@ class _BottomBarState extends State<BottomBar> {
           });
         },
         onFabButtonPressed: () {
-              return AnuncioForm();
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) {
+                return CrearAnuncioScreen();
+              }));
         },
       ),
 
@@ -69,6 +73,8 @@ class _BottomBarState extends State<BottomBar> {
           switch (page) {
             case 'Inicio':
               return HomeScreen();
+            case 'Favoritos':
+              return FavoritosScreen();
             case 'Chats':
               return ChatsPage();
             case 'Perfil':

@@ -152,3 +152,31 @@ Future addRandomUsers(List<User> users) async {
     }
   }
 }
+
+Future isFavorito (String idAnuncio) async {
+  int numeroDocs = await FirebaseFirestore.instance.collection('Anuncios').where('favoritos', arrayContainsAny: [myId]).snapshots().length;
+
+  if (numeroDocs < 0){
+    return true;
+  } else return false;
+}
+
+Future favorito (String idAnuncio, bool taped) async {
+  if (taped == true) {
+    await FirebaseFirestore.instance.collection('Anuncios').doc(idAnuncio)
+        .update({'favoritos': FieldValue.arrayUnion([myId])
+    });
+  } else {
+    await FirebaseFirestore.instance.collection('Anuncios').doc(idAnuncio)
+        .update({'favoritos': FieldValue.arrayRemove([myId])
+    });
+  }
+}
+
+
+Stream<List<AnunciosList>> getFavoritosAnunciosList() => FirebaseFirestore.instance
+    .collection('Anuncios')
+    .where('favoritos', arrayContainsAny: [myId])
+    .orderBy(AnunciosListField.createdAt, descending: true)
+    .snapshots()
+    .transform(Utils.transformer(AnunciosList.fromJson));

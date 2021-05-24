@@ -12,5 +12,6 @@ final FirebaseAuth auth = FirebaseAuth.instance;
 
 
 String myId = auth.currentUser.uid;
+String myEmail = auth.currentUser.email;
 String myUsername = auth.currentUser.displayName;
 String myUrlAvatar = auth.currentUser.photoURL;

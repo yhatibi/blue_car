@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:icon_shadow/icon_shadow.dart';
 
 class FavoriteButton extends StatefulWidget {
   FavoriteButton({
@@ -28,11 +29,11 @@ class FavoriteButton extends StatefulWidget {
 
 class _FavoriteButtonState extends State<FavoriteButton>
     with TickerProviderStateMixin {
-   AnimationController _controller;
-   Animation<Color> _colorAnimation;
-   Animation<double> _sizeAnimation;
+  AnimationController _controller;
+  Animation<Color> _colorAnimation;
+  Animation<double> _sizeAnimation;
 
-   CurvedAnimation _curve;
+  CurvedAnimation _curve;
 
   double _maxIconSize = 0.0;
   double _minIconSize = 0.0;
@@ -50,8 +51,8 @@ class _FavoriteButtonState extends State<FavoriteButton>
     _maxIconSize = (widget._iconSize < 20.0)
         ? 20.0
         : (widget._iconSize > 100.0)
-        ? 100.0
-        : widget._iconSize;
+            ? 100.0
+            : widget._iconSize;
     final double _sizeDifference = _maxIconSize * 0.30;
     _minIconSize = _maxIconSize - _sizeDifference;
 
@@ -128,7 +129,7 @@ class _FavoriteButtonState extends State<FavoriteButton>
             });
           },
           child: Icon(
-            (Icons.favorite),
+            (Icons.favorite_border),
             color: _colorAnimation.value,
             size: _sizeAnimation.value,
           ),

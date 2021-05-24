@@ -75,9 +75,7 @@ class MyAnunciosBodyWidget extends StatelessWidget {
                                       btnOkText: 'Eliminar!',
                                       btnCancelText: 'Cancelar',
                                       showCloseIcon: true,
-                                      btnCancelOnPress: () {
-
-                                      },
+                                      btnCancelOnPress: () {},
                                       btnOkOnPress: () {
                                         eliminarAnuncio(anuncio.id);
                                       },

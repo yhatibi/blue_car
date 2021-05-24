@@ -1,100 +1,112 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:blue_car/Services/auth_services.dart';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 
-import 'Services/bluecar_api.dart';
-import 'notifier/anuncio_notifier.dart';
-
+import 'Screens/CrearAnuncio/model/image_upload_model.dart';
 
 class Pruebas extends StatefulWidget {
   @override
-  _PruebasState createState() => _PruebasState();
+  _PruebasState createState() {
+    return _PruebasState();
+  }
 }
 
 class _PruebasState extends State<Pruebas> {
+  List<Asset> images = <Asset>[];
+  String _error = 'No Error Dectected';
+
+  @override
   void initState() {
-    AnunciosModel anuncioNotifier = Provider.of<AnunciosModel>(context, listen: false);
-    // getAnuncio(anuncioNotifier);
     super.initState();
   }
-  // String nombre = "waiting";
-  // final FirebaseAuth auth = FirebaseAuth.instance;
-  //
-  // void creaperfil() async {
-  //   await context.read<AuthService>().signUp("lddsdca@dfsdlslq.com","123456papa","Juan mario",);
-  //   await context.read<AuthService>().updateUser("","","ASD sdad SDA",);
-  //
-  //   setState(() {
-  //     print("********");
-  //     print(auth.currentUser);
-  //     // nombre = auth.currentUser.displayName;
-  //   });
-  //
-  // }
-  // @override
-  // void initState() {
-  //   super.initState();
-  //
-  //   creaperfil();
-  //
-  // }
-  //
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: Container(
-  //       child: Text(nombre),
-  //     ),
-  //   );
-  // }
 
-  File _image;
-  final picker = ImagePicker();
+  Widget buildGridView() {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+        Asset asset = images[index];
 
-  Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+        return Card(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: AssetThumb(
+            asset: asset,
+            width: 300,
+            height: 300,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 2,
+          margin: EdgeInsets.all(5),
+        );
+
+
+
+      }
+      );
+  }
+
+  Future<void> loadAssets() async {
+    List<Asset> resultList = <Asset>[];
+    String error = 'No Error Detected';
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 15,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(
+          takePhotoIcon: "chat",
+          doneButtonTitle: "Fatto",
+        ),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#abcdef",
+          actionBarTitle: "Example App",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
 
     setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
+      images = resultList;
+      _error = error;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    AnunciosModel anuncioNotifier = Provider.of<AnunciosModel>(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Image Picker Example'),
-      ),
-      body: ListView.separated(
-        itemBuilder: (BuildContext context, int index){
-          return ListTile(
-            title: Text(anuncioNotifier.anuncioLista[index].titulo),
-            subtitle: Text(anuncioNotifier.anuncioLista[index].descripcion),
-          );
-        },
-        itemCount: anuncioNotifier.anuncioLista.length,
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            color: Colors.black38,
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getImage,
-        tooltip: 'Pick Image',
-        child: Icon(Icons.add_a_photo),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        body: Column(
+          children: <Widget>[
+            ElevatedButton(
+              child: Text("Pick images"),
+              onPressed: loadAssets,
+            ),
+            Container(
+              height: 120,
+              child: buildGridView(),
+            )
+          ],
+        ),
       ),
     );
-
   }
 }
