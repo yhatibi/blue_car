@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:blue_car/Screens/Anuncio/anuncio_screen.dart';
 import 'package:blue_car/Screens/Perfil/my_anuncios/my_anucnios.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
+import 'package:blue_car/data.dart';
 import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/models/anuncios_list.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
@@ -61,7 +62,7 @@ class HomeScreenBodyWidget extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: Container(
                           child: FavoriteButton(
-                            isFavorite: false,
+                            isFavorite: anuncio.favoritos.contains(myId),
                             iconDisabledColor: Colors.blue,
                             iconSize: 35.0,
                             valueChanged: (_isFavorite) {

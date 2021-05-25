@@ -1,6 +1,6 @@
 import 'package:blue_car/Screens/Anuncio/anuncio_screen.dart';
 import 'package:blue_car/Screens/Anuncio/create_edit_anuncio_screen.dart';
-import 'package:blue_car/Screens/List/hotel_home_screen.dart';
+import 'package:blue_car/Screens/List/buscar_home_screen.dart';
 import 'package:blue_car/Screens/Perfil/components/profile_pic.dart';
 import 'package:blue_car/Screens/Perfil/my_anuncios/widgets/my_anuncios_widtget.dart';
 import 'package:blue_car/Screens/Perfil/profile_screen.dart';
@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<User>();
     return AdvancedDrawer(
       backdropColor: Colors.blueGrey,
       controller: _advancedDrawerController,
@@ -71,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
       child: Scaffold(
+
         body: AnimatedContainer(
           transform: Matrix4.translationValues(xOffset, yOffset, 0)
             ..scale(scaleFactor)
@@ -151,8 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.10,
                           child: CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage(auth.currentUser.photoURL)),
+                              backgroundImage: NetworkImage(myUrlAvatar)),
                         ),
                         // Handle your callback
                       )
@@ -215,12 +216,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.black54,
                             fontSize: 16),
                       ),
-                      Text(
-                        "Ver todos",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.blue,
-                            fontSize: 13),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          textStyle: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.blue,
+                              fontSize: 13),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return HotelHomeScreen();
+                              }));
+                        },
+                        child: const Text('Ver todos', style: TextStyle(color: Colors.blue)),
                       ),
                     ],
                   ),

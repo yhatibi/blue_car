@@ -17,9 +17,6 @@ class AuthService {
   Stream<User> get authStateChanges => _auth.idTokenChanges();
 
   Future<String> logout() async {
-    myId = null;
-    myUsername = null;
-    myUrlAvatar = null;
     await FirebaseAuth.instance.signOut();
   }
 
@@ -44,6 +41,11 @@ class AuthService {
 
       await userCredential.user.updateProfile(displayName: name, photoURL: "https://firebasestorage.googleapis.com/v0/b/bluecar-eadb6.appspot.com/o/avatares%2Fimage12021-04-26%2019%3A18%3A01.011096?alt=media&token=270e2f4b-2b60-410a-8102-e93060829f7b");
 
+      myId = userCredential.user.uid;
+      myEmail = email;
+      myUsername = name;
+      myUrlAvatar = "https://firebasestorage.googleapis.com/v0/b/bluecar-eadb6.appspot.com/o/avatares%2Fimage12021-04-26%2019%3A18%3A01.011096?alt=media&token=270e2f4b-2b60-410a-8102-e93060829f7b";
+
       print("Registrado Correctamente");
 
       return "Signed Up";
@@ -63,16 +65,16 @@ class AuthService {
     try{
 
       if(newEmail.isNotEmpty){
-        await _auth.currentUser.updateEmail(newEmail);
+        await _auth.currentUser.updateEmail(newEmail).then((value) => myEmail = newEmail);
       }
       if(newPassword.isNotEmpty) {
         await _auth.currentUser.updatePassword(newPassword);
       }
       if(newName.isNotEmpty) {
-        await _auth.currentUser.updateProfile(displayName: newName);
+        await _auth.currentUser.updateProfile(displayName: newName).then((value) => myUsername = newName);
       }
       if(urlImage.isNotEmpty) {
-        await _auth.currentUser.updateProfile(photoURL: urlImage);
+        await _auth.currentUser.updateProfile(photoURL: urlImage).then((value) => myUrlAvatar = urlImage);
       }
       print('Cambios CORRECTOS!');
       return "Email cambiado!";

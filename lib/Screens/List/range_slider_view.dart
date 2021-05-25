@@ -1,4 +1,4 @@
-import 'package:blue_car/Screens/List/hotel_app_theme.dart';
+import 'package:blue_car/Screens/List/buscar_app_theme.dart';
 import 'package:flutter/material.dart';
 
 class RangeSliderView extends StatefulWidget {

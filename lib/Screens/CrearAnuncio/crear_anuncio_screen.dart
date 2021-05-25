@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:blue_car/Screens/List/hotel_app_theme.dart';
+import 'package:blue_car/Screens/List/buscar_app_theme.dart';
 import 'package:blue_car/Screens/CrearAnuncio/model/image_upload_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

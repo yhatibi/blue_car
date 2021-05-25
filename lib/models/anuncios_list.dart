@@ -15,6 +15,7 @@ class AnunciosList {
   final String creador;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final favoritos;
 
   const AnunciosList({
     @required this.id,
@@ -24,6 +25,7 @@ class AnunciosList {
     @required this.creador,
     @required this.createdAt,
     @required this.updatedAt,
+    this.favoritos,
   });
 
   AnunciosList copyWith({
@@ -34,6 +36,7 @@ class AnunciosList {
     String creador,
     String createdAt,
     String updatedAt,
+    favoritos,
   }) =>
       AnunciosList(
         id: id ?? this.id,
@@ -43,6 +46,7 @@ class AnunciosList {
         creador: creador ?? this.creador,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
+        favoritos: favoritos,
       );
 
   static AnunciosList fromJson(Map<String, dynamic> json) => AnunciosList(
@@ -53,6 +57,7 @@ class AnunciosList {
     creador: json['creador'],
     createdAt: Utils.toDateTime(json['createdAt']),
     updatedAt: Utils.toDateTime(json['updatedAt']),
+    favoritos: json['favoritos']
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,5 +68,6 @@ class AnunciosList {
     'creador': creador,
     'createdAt': Utils.fromDateTimeToJson(createdAt),
     'updatedAt': Utils.fromDateTimeToJson(updatedAt),
+    'favoritos': favoritos,
   };
 }

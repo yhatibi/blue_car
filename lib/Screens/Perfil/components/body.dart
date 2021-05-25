@@ -1,5 +1,7 @@
+import 'package:blue_car/Screens/Login/login_page.dart';
 import 'package:blue_car/Screens/Perfil/edit_profile/edit_profile.dart';
 import 'package:blue_car/Screens/Perfil/my_anuncios/my_anucnios.dart';
+import 'package:blue_car/data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +17,6 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emailUser = auth.currentUser.email;
-    final nameUser = auth.currentUser.displayName;
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -77,11 +77,11 @@ class Body extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          nameUser,
+                          myUsername,
                           style: TextStyle(color: Colors.black, fontSize: 16),
                         ),
                         SizedBox(height: 3),
-                        Text(emailUser, style: TextStyle(color: Colors.black45))
+                        Text(myEmail, style: TextStyle(color: Colors.black45))
                       ],
                     ),
                     SizedBox(height: 20),
@@ -118,7 +118,9 @@ class Body extends StatelessWidget {
                 context
                     .read<AuthService>()
                     .logout()
-                    .then((value) => Navigator.pop(context));
+                    .then((value) {
+                      return LoginPage();
+                    });
               },
             ),
           ],

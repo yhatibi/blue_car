@@ -31,7 +31,6 @@ class FavoritosBodyWidget extends StatelessWidget {
 
     return Expanded(
       child: Container(
-
           child: GridView.count(
         crossAxisCount: 2,
         childAspectRatio: (itemWidth / 250),
@@ -61,7 +60,7 @@ class FavoritosBodyWidget extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
                           child: Image.asset(
-                            'assets/images/coche.jpg', //TODO fill path
+                            'assets/images/coche.jpg',
                             height: double.infinity,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -73,7 +72,7 @@ class FavoritosBodyWidget extends StatelessWidget {
                         child: Container(
                           margin: EdgeInsets.all(15),
                           child: FavoriteButton(
-                            isFavorite: false,
+                            isFavorite: true,
                             iconDisabledColor: Colors.blue,
                             iconSize: 30.0,
                             valueChanged: (_isFavorite) {

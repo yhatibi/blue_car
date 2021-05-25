@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:blue_car/Screens/List/hotel_list_view.dart';
+import 'package:blue_car/Screens/List/buscar_list_view.dart';
 import 'package:blue_car/Screens/List/model/hotel_list_data.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
 import 'package:blue_car/models/anuncios_list.dart';
@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import '../../theme.dart';
 import 'filters_screen.dart';
-import 'hotel_app_theme.dart';
+import 'buscar_app_theme.dart';
 
 class HotelHomeScreen extends StatefulWidget {
   @override
@@ -21,6 +21,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
   AnimationController animationController;
   List<HotelListData> hotelList = HotelListData.hotelList;
   final ScrollController _scrollController = ScrollController();
+  int sumaCoches = 0;
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
@@ -129,28 +130,13 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                       if (anunciosList.isEmpty) {
                         return buildText('No Anuncios encontrados');
                       } else
-                  return ListView.builder(
-                    itemCount: anunciosList.length,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (BuildContext context, int index) {
-                      final int count =
-                      anunciosList.length > 10 ? 10 : anunciosList.length;
-                      final Animation<double> animation =
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                              CurvedAnimation(
-                                  parent: animationController,
-                                  curve: Interval((1 / count) * index, 1.0,
-                                      curve: Curves.fastOutSlowIn)));
-                      animationController.forward();
 
-                      return HotelListView(
-                        callback: () {},
-                        hotelData: anunciosList[index],
-                        animation: animation,
-                        animationController: animationController,
-                      );
-                    },
-                  );
+                          sumaCoches = anunciosList.length;
+                          return Column(
+                          children: [
+                            HotelListView(anunciosList: anunciosList),
+                          ],
+                        );
                     }
                 }
               }
@@ -282,7 +268,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      '530 coches',
+                      '$sumaCoches coches',
                       style: TextStyle(
                         fontWeight: FontWeight.w100,
                         fontSize: 16,
