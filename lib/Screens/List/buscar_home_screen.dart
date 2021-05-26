@@ -20,10 +20,14 @@ class _BuscarScreenState extends State<BuscarScreen>
     with TickerProviderStateMixin {
   AnimationController animationController;
   final ScrollController _scrollController = ScrollController();
+  final myController = TextEditingController();
+
   int sumaCoches = 0;
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
+
+
 
   @override
   void initState() {
@@ -36,8 +40,23 @@ class _BuscarScreenState extends State<BuscarScreen>
     await Future<dynamic>.delayed(const Duration(milliseconds: 200));
     return true;
   }
+  List<AnunciosList> filtredList = [];
+  List<AnunciosList> anunciosList = [];
 
 
+  getTotalCars(String txt) {
+
+    anunciosList.forEach((element) {
+      if(element.titulo.toLowerCase().contains(txt.toLowerCase())) {
+        print(element.titulo);
+        filtredList.add(element);
+        print('añadido');
+      }
+    });
+    // filtredList.forEach((element) {
+    //   print(element.titulo);
+    // });
+  }
 
   @override
   void dispose() {
@@ -49,7 +68,8 @@ class _BuscarScreenState extends State<BuscarScreen>
   Widget build(BuildContext context) {
 
     return  Scaffold(
-            body: SafeArea(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
               child: Stack(
                 children: <Widget>[
                   InkWell(
@@ -126,16 +146,17 @@ class _BuscarScreenState extends State<BuscarScreen>
                       return buildText(
                           'Algo fue mal, vuelve a intentarlo mas tarde :(');
                     } else {
-                      final anunciosList = snapshot.data;
+                      anunciosList = snapshot.data;
 
-                      if (anunciosList.isEmpty) {
+                      sumaCoches = snapshot.data.length;
+                      print(sumaCoches);
+                          if (anunciosList.isEmpty) {
                         return buildText('No Anuncios encontrados');
                       } else
 
-                          sumaCoches = anunciosList.length;
                           return Column(
                           children: [
-                            BuscarListView(anunciosList: anunciosList),
+                            BuscarListView(anunciosList: filtredList.length <= 0 ?anunciosList :filtredList),
                           ],
                         );
                     }
@@ -183,9 +204,10 @@ class _BuscarScreenState extends State<BuscarScreen>
                   padding: const EdgeInsets.only(
                       left: 16, right: 16, top: 4, bottom: 4),
                   child: TextField(
-                    onChanged: (String txt) {
-                      print(txt);
-                    },
+                    controller: myController,
+                    // onChanged: (String txt) {
+                    //   getTotalCars(txt);
+                    // },
                     style: const TextStyle(
                       fontSize: 17,
                     ),
@@ -226,6 +248,9 @@ class _BuscarScreenState extends State<BuscarScreen>
                   Radius.circular(32.0),
                 ),
                 onTap: () {
+                  if(myController.text == "") //
+                  // print(myController.text);
+                  getTotalCars(myController.text);
                   FocusScope.of(context).requestFocus(FocusNode());
                 },
                 child: Padding(
