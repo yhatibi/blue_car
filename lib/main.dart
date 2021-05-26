@@ -55,7 +55,7 @@ class AuthWrapper extends StatelessWidget{
   Widget build(BuildContext context) {
     final user = context.watch<User>();
 
-    // return Pruebas();
+    // return NewEditarPerfil();
     if(user != null){
       return BottomBar();
     }

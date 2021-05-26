@@ -11,15 +11,14 @@ import '../../theme.dart';
 import 'filters_screen.dart';
 import 'buscar_app_theme.dart';
 
-class HotelHomeScreen extends StatefulWidget {
+class BuscarScreen extends StatefulWidget {
   @override
-  _HotelHomeScreenState createState() => _HotelHomeScreenState();
+  _BuscarScreenState createState() => _BuscarScreenState();
 }
 
-class _HotelHomeScreenState extends State<HotelHomeScreen>
+class _BuscarScreenState extends State<BuscarScreen>
     with TickerProviderStateMixin {
   AnimationController animationController;
-  List<HotelListData> hotelList = HotelListData.hotelList;
   final ScrollController _scrollController = ScrollController();
   int sumaCoches = 0;
 
@@ -37,6 +36,8 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
     await Future<dynamic>.delayed(const Duration(milliseconds: 200));
     return true;
   }
+
+
 
   @override
   void dispose() {
@@ -101,7 +102,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
   Widget getListUI() {
     return Container(
       decoration: BoxDecoration(
-        color: HotelAppTheme.buildLightTheme().backgroundColor,
+        color: BuscarAppTheme.buildLightTheme().backgroundColor,
         boxShadow: <BoxShadow>[
           BoxShadow(
               color: Colors.grey.withOpacity(0.2),
@@ -134,7 +135,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           sumaCoches = anunciosList.length;
                           return Column(
                           children: [
-                            HotelListView(anunciosList: anunciosList),
+                            BuscarListView(anunciosList: anunciosList),
                           ],
                         );
                     }
@@ -167,7 +168,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
               padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
               child: Container(
                 decoration: BoxDecoration(
-                  color: HotelAppTheme.buildLightTheme().backgroundColor,
+                  color: BuscarAppTheme.buildLightTheme().backgroundColor,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(38.0),
                   ),
@@ -182,11 +183,13 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                   padding: const EdgeInsets.only(
                       left: 16, right: 16, top: 4, bottom: 4),
                   child: TextField(
-                    onChanged: (String txt) {},
+                    onChanged: (String txt) {
+                      print(txt);
+                    },
                     style: const TextStyle(
                       fontSize: 17,
                     ),
-                    cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
+                    cursorColor: BuscarAppTheme.buildLightTheme().primaryColor,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Busca tu coche...',
@@ -229,7 +232,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(FontAwesomeIcons.search,
                       size: 20,
-                      color: HotelAppTheme.buildLightTheme().backgroundColor),
+                      color: BuscarAppTheme.buildLightTheme().backgroundColor),
                 ),
               ),
             ),
@@ -258,7 +261,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
           ),
         ),
         Container(
-          color: HotelAppTheme.buildLightTheme().backgroundColor,
+          color: BuscarAppTheme.buildLightTheme().backgroundColor,
           child: Padding(
             padding:
                 const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),

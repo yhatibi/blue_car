@@ -15,11 +15,11 @@ import '../../theme.dart';
 
 
 
-class HotelListView extends StatelessWidget {
+class BuscarListView extends StatelessWidget {
   final List<AnunciosList> anunciosList;
 
 
-  const HotelListView({
+  const BuscarListView({
     @required this.anunciosList,
     Key key,
   }) : super(key: key);

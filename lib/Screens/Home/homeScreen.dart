@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) {
-                            return HotelHomeScreen();
+                            return BuscarScreen();
                           }));
                         },
                       ),
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) {
-                                return HotelHomeScreen();
+                                return BuscarScreen();
                               }));
                         },
                         child: const Text('Ver todos', style: TextStyle(color: Colors.blue)),
