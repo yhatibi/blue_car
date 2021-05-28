@@ -58,7 +58,7 @@ Stream<List<AnunciosList>> getConcretAnunciosList(String idUser) => FirebaseFire
     .snapshots()
     .transform(Utils.transformer(AnunciosList.fromJson));
 
-Future createChatRoom(String idUser, String message, String idAnuncio, String idChatRoom, String tituloAnuncio) async {
+Future createChatRoom(String idUser, String message, String idAnuncio, String idChatRoom, String tituloAnuncio, String urlImage) async {
   int contador = 0;
   bool chatRoomWhileDone = false;
   print('Chat Room id: $idChatRoom');
@@ -88,7 +88,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio, String id
         'idAnuncio': idAnuncio,
         'otherIdUser': myId,
         'name': tituloAnuncio,
-        'urlPhoto': idUser,
+        'urlPhoto': urlImage,
         'lastMessage': message,
         'timeLastMessage': DateTime.now(),
       })
@@ -97,7 +97,7 @@ Future createChatRoom(String idUser, String message, String idAnuncio, String id
         'idAnuncio': idAnuncio,
         'otherIdUser': idUser,
         'name': tituloAnuncio,
-        'urlPhoto': idUser,
+        'urlPhoto': urlImage,
         'lastMessage': message,
         'timeLastMessage': DateTime.now(),
       }))

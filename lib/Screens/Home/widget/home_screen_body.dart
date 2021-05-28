@@ -52,8 +52,7 @@ class HomeScreenBodyWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(
-                              "assets/images/coche.jpg"),
+                          image: NetworkImage(anuncio.imagenes[0]),
                         ),
                         boxShadow: shadowList,
                         borderRadius: BorderRadius.circular(20),
@@ -127,6 +126,7 @@ class HomeScreenBodyWidget extends StatelessWidget {
                                 child: ListView(
                                   scrollDirection: Axis.horizontal,
                                   children: [
+                                    if (anuncio.ano.isNotEmpty)
                                     Container(
                                       padding: EdgeInsets.all(5),
                                       decoration: BoxDecoration(
@@ -134,7 +134,7 @@ class HomeScreenBodyWidget extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Text(
-                                        "250.000km",
+                                        anuncio.ano,
                                         style: const TextStyle(
                                             fontSize: 13.0,
                                             color: Colors.black54),
@@ -142,14 +142,15 @@ class HomeScreenBodyWidget extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(width: 5),
-                                    Container(
+                                    if (anuncio.kilometros.isNotEmpty)
+                                      Container(
                                       padding: EdgeInsets.all(5),
                                       decoration: BoxDecoration(
                                         color: Colors.black12,
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Text(
-                                        "2019",
+                                        anuncio.kilometros+' km',
                                         style: const TextStyle(
                                             fontSize: 13.0,
                                             color: Colors.black54),
@@ -157,6 +158,7 @@ class HomeScreenBodyWidget extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(width: 5),
+                                    if (anuncio.cavallos.isNotEmpty)
                                     Container(
                                       padding: EdgeInsets.all(5),
                                       decoration: BoxDecoration(
@@ -164,13 +166,46 @@ class HomeScreenBodyWidget extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Text(
-                                        "2019",
+                                        anuncio.cavallos+' cv',
                                         style: const TextStyle(
                                             fontSize: 13.0,
                                             color: Colors.black54),
                                         textAlign: TextAlign.left,
                                       ),
                                     ),
+                                    SizedBox(width: 5),
+                                    if (anuncio.combustible.isNotEmpty)
+                                      Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black12,
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          anuncio.combustible,
+                                          style: const TextStyle(
+                                              fontSize: 13.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    SizedBox(width: 5),
+                                    if (anuncio.puertas.isNotEmpty)
+                                      Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black12,
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          'Puertas: '+anuncio.puertas,
+                                          style: const TextStyle(
+                                              fontSize: 13.0,
+                                              color: Colors.black54),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    SizedBox(width: 5),
                                   ],
                                 ),
                               ),
@@ -224,12 +259,13 @@ class HomeScreenBodyWidget extends StatelessWidget {
                                   stops: <double>[0.0, 1.0],
                                   tileMode: TileMode.clamp),
                             ),
-                            padding: EdgeInsets.all(15.0),
+                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                             child: Text(
-                              "13.000 EUR",
+                              anuncio.precio+' €',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                                  color: Colors.white,
+                                  fontSize: 16),
                             ),
                           ),
                         ),

@@ -134,9 +134,12 @@ class _FavoritosScreenState extends State<FavoritosScreen> {
 
 
   Widget buildText(String text) => Center(
-    child: Text(
-      text,
-      style: TextStyle(fontSize: 24, color: Colors.black87),
+    child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 20, color: Colors.black87),
+      ),
     ),
   );
 }

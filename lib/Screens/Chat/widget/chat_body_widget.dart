@@ -50,7 +50,7 @@ class ChatBodyWidget extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    // backgroundImage: NetworkImage(chat.urlPhoto),
+                    backgroundImage: NetworkImage(chat.urlPhoto),
                   ),
                   SizedBox(
                     width: 10,

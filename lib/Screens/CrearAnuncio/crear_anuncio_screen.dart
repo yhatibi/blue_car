@@ -282,21 +282,6 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
                       child: buildTextField("Precio *", "10000€", true, precioController),
                     ),
                     Container(
-                      child: TextField(
-                        controller: precioController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(20.0),
-                            labelText: "Precio*",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintText: "10000€",
-                            hintStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black12,
-                            )),
-                      ),
-                    ),
-                    Container(
                       width: double.infinity,
                       color: Colors.black12,
                       child: Padding(

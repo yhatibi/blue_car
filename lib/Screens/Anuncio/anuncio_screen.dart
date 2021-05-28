@@ -50,7 +50,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/coche.jpg"),
+                    image: NetworkImage(widget.anunciosList.imagenes[0]),
                   ),
                   borderRadius: BorderRadius.only(
                     bottomLeft: const Radius.circular(40.0),
@@ -65,12 +65,12 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.50,
+                      width: MediaQuery.of(context).size.width * 0.55,
                       child: Text(
                         widget.anunciosList.titulo,
                         style: TextStyle(
                           color: Colors.black87,
-                          fontSize: 18.0,
+                          fontSize: 19.0,
                           fontWeight: FontWeight.bold,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -79,10 +79,10 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.40,
+                        width: MediaQuery.of(context).size.width * 0.35,
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            bottomLeft: const Radius.circular(10.0),
+                            bottomLeft: const Radius.circular(20.0),
                           ),
                           gradient: LinearGradient(
                               colors: <Color>[
@@ -97,10 +97,10 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                         padding: EdgeInsets.only(
                             left: 20, right: 20, top: 10, bottom: 10),
                         child: Text(
-                          "13.000 EUR",
+                          "13.000 €",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 17,
+                              fontSize: 20,
                               color: Colors.white),
                         ),
                       ),
@@ -244,7 +244,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                       child: RaisedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ChatPage(idUser: widget.anunciosList.creador, idAnuncio: widget.anunciosList.id, tituloAnuncio: widget.anunciosList.titulo),
+                            builder: (context) => ChatPage(idUser: widget.anunciosList.creador, idAnuncio: widget.anunciosList.id, tituloAnuncio: widget.anunciosList.titulo, urlImage: widget.anunciosList.imagenes[0]),
                           ));
                         },
                         shape: RoundedRectangleBorder(
