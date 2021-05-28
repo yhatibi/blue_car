@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:blue_car/Screens/List/buscar_app_theme.dart';
+import 'package:blue_car/Screens/Buscar/buscar_app_theme.dart';
 import 'package:blue_car/Screens/CrearAnuncio/model/image_upload_model.dart';
 import 'package:blue_car/data.dart';
 import 'package:blue_car/widgets/snackbar.dart';

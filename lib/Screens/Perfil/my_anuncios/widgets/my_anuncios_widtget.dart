@@ -44,7 +44,7 @@ class MyAnunciosBodyWidget extends StatelessWidget {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage("assets/images/coche.jpg"),
+                              image: anuncio.imagenes == null ? AssetImage("assets/images/no-image.png") : NetworkImage(anuncio.imagenes[0]),
                             ),
                             boxShadow: shadowList,
                             borderRadius: BorderRadius.circular(20),
@@ -153,7 +153,7 @@ class MyAnunciosBodyWidget extends StatelessWidget {
                                                   Radius.circular(20)),
                                               color: Colors.black12),
                                           child: Text(
-                                            "13.000€",
+                                            anuncio.precio+' €',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.left,

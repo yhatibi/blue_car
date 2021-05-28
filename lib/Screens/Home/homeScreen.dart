@@ -1,6 +1,6 @@
 import 'package:blue_car/Screens/Anuncio/anuncio_screen.dart';
 import 'package:blue_car/Screens/Anuncio/create_edit_anuncio_screen.dart';
-import 'package:blue_car/Screens/List/buscar_home_screen.dart';
+import 'package:blue_car/Screens/Buscar/buscar_home_screen.dart';
 import 'package:blue_car/Screens/Perfil/components/profile_pic.dart';
 import 'package:blue_car/Screens/Perfil/my_anuncios/widgets/my_anuncios_widtget.dart';
 import 'package:blue_car/Screens/Perfil/profile_screen.dart';
@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:blue_car/configuration.dart';
 import 'package:blue_car/theme.dart';
 import 'package:blue_car/widgets/snackbar.dart';
-import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:pandabar/main.view.dart';
 import 'package:pandabar/model.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +29,6 @@ class HomeScreen extends StatefulWidget {
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _advancedDrawerController = AdvancedDrawerController();
 
   @override
   void initState() {
@@ -55,23 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<User>();
-    return AdvancedDrawer(
-      backdropColor: Colors.blueGrey,
-      controller: _advancedDrawerController,
-      animationCurve: Curves.easeInOut,
-      animationDuration: const Duration(milliseconds: 300),
-      childDecoration: const BoxDecoration(
-        // NOTICE: Uncomment if you want to add shadow behind the page.
-        // Keep in mind that it may cause animation jerks.
-        // boxShadow: <BoxShadow>[
-        //   BoxShadow(
-        //     color: Colors.black12,
-        //     blurRadius: 0.0,
-        //   ),
-        // ],
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
-      ),
-      child: Scaffold(
+    return Scaffold(
 
         body: AnimatedContainer(
           transform: Matrix4.translationValues(xOffset, yOffset, 0)
@@ -95,17 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Container(
                           width: MediaQuery.of(context).size.width * 0.10,
-                          child: IconButton(
-                            onPressed: _handleMenuButtonPressed,
-                            icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                              valueListenable: _advancedDrawerController,
-                              builder: (context, value, child) {
-                                return Icon(
-                                  value.visible ? Icons.clear : Icons.menu,
-                                );
-                              },
-                            ),
-                          )),
+                          child: Text("")),
                       GestureDetector(
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.65,
@@ -277,15 +249,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-      ),
     );
   }
 
-  void _handleMenuButtonPressed() {
-    // NOTICE: Manage Advanced Drawer state through the Controller.
-    // _advancedDrawerController.value = AdvancedDrawerValue.visible();
-    _advancedDrawerController.showDrawer();
-  }
 
   Widget buildText(String text) => Center(
         child: Text(

@@ -1,18 +1,18 @@
-import 'package:blue_car/Screens/List/buscar_app_theme.dart';
+import 'package:blue_car/Screens/Buscar/buscar_app_theme.dart';
 import 'package:flutter/material.dart';
 
-class RangeSliderView extends StatefulWidget {
-  const RangeSliderView({Key key, this.values, this.onChangeRangeValues})
+class RangeSliderViewkm extends StatefulWidget {
+  const RangeSliderViewkm({Key key, this.values, this.onChangeRangeValues})
       : super(key: key);
 
   final Function(RangeValues) onChangeRangeValues;
   final RangeValues values;
 
   @override
-  _RangeSliderViewState createState() => _RangeSliderViewState();
+  _RangeSliderViewkmState createState() => _RangeSliderViewkmState();
 }
 
-class _RangeSliderViewState extends State<RangeSliderView> {
+class _RangeSliderViewkmState extends State<RangeSliderViewkm> {
   RangeValues _values;
 
   @override
@@ -37,7 +37,7 @@ class _RangeSliderViewState extends State<RangeSliderView> {
                   Container(
                     width: 54,
                     child: Text(
-                      '\$${_values.start.round()}',
+                      '\k\m${_values.start.round()}',
                       textAlign: TextAlign.center,
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:blue_car/Screens/CentroAyuda/centro_de_ayuda.dart';
 import 'package:blue_car/Screens/Login/login_page.dart';
 import 'package:blue_car/Screens/Perfil/edit_profile/edit_profile.dart';
 import 'package:blue_car/Screens/Perfil/my_anuncios/my_anucnios.dart';
@@ -109,7 +110,10 @@ class Body extends StatelessWidget {
             ProfileMenu(
               text: "Centro Ayuda",
               icon: "assets/icons/Question mark.svg",
-              press: () {},
+              press: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CentroAyuda()));
+              },
             ),
             ProfileMenu(
               text: "Salir",

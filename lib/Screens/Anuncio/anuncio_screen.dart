@@ -1,9 +1,10 @@
-
 import 'package:blue_car/Screens/Chat/chat_page.dart';
+import 'package:blue_car/Services/bluecar_api.dart';
 
 import 'package:blue_car/models/anuncio.dart';
 import 'package:blue_car/models/anuncios_list.dart';
 import 'package:blue_car/notifier/anuncio_notifier.dart';
+import 'package:blue_car/widgets/custom_favorite_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,9 @@ import '../../theme.dart';
 import 'package:blue_car/Screens/Chat/model/user.dart' as u;
 
 class AnuncioScreen extends StatefulWidget {
-
   final AnunciosList anunciosList;
 
-  const AnuncioScreen ({ Key key, this.anunciosList }): super(key: key);
+  const AnuncioScreen({Key key, this.anunciosList}) : super(key: key);
 
   @override
   _AnuncioScreenState createState() => _AnuncioScreenState();
@@ -37,7 +37,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
         idUser: widget.anunciosList.creador,
         name: myUsername,
         urlAvatar: myUrlAvatar,
-    lastMessageTime: now);
+        lastMessageTime: now);
 
     return Scaffold(
       body: Stack(
@@ -97,7 +97,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                         padding: EdgeInsets.only(
                             left: 20, right: 20, top: 10, bottom: 10),
                         child: Text(
-                          widget.anunciosList.precio+' €',
+                          widget.anunciosList.precio + ' €',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -112,11 +112,43 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                 alignment: Alignment.center,
                 child: Container(
                   height: 110,
-                  child: ListView.builder(
+                  child: ListView(
                     scrollDirection: Axis.horizontal,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      return Container(
+                    children: [
+                      Container(
+                        child: Column(
+                          children: [
+                            if (widget.anunciosList.ano.isNotEmpty)
+                              Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(
+                                  left: 20, bottom: 10, top: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: shadowList,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                      "",
+                                      height: 50,
+                                      width: 50,
+                                      color: Colors.grey[700]),
+                                  Text(
+                                    widget.anunciosList.ano,
+                                    style: const TextStyle(
+                                        fontFamily: 'WorkSansSemiBold',
+                                        fontSize: 12.0,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (widget.anunciosList.kilometros.isNotEmpty)
+                      Container(
                         child: Column(
                           children: [
                             Container(
@@ -129,12 +161,13 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: Column(
                                 children: [
-                                  Image.asset(categories[index]['iconPath'],
+                                  Image.asset(
+                                      "",
                                       height: 50,
                                       width: 50,
                                       color: Colors.grey[700]),
                                   Text(
-                                    categories[index]['name'],
+                                    widget.anunciosList.kilometros+' km',
                                     style: const TextStyle(
                                         fontFamily: 'WorkSansSemiBold',
                                         fontSize: 12.0,
@@ -145,8 +178,104 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                             ),
                           ],
                         ),
-                      );
-                    },
+                      ),
+                      if (widget.anunciosList.cavallos.isNotEmpty)
+                        Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(
+                                  left: 20, bottom: 10, top: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: shadowList,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                      "",
+                                      height: 50,
+                                      width: 50,
+                                      color: Colors.grey[700]),
+                                  Text(
+                                    widget.anunciosList.cavallos+' cv',
+                                    style: const TextStyle(
+                                        fontFamily: 'WorkSansSemiBold',
+                                        fontSize: 12.0,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (widget.anunciosList.combustible.isNotEmpty)
+                        Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(
+                                  left: 20, bottom: 10, top: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: shadowList,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                      "",
+                                      height: 50,
+                                      width: 50,
+                                      color: Colors.grey[700]),
+                                  Text(
+                                    widget.anunciosList.combustible,
+                                    style: const TextStyle(
+                                        fontFamily: 'WorkSansSemiBold',
+                                        fontSize: 12.0,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (widget.anunciosList.puertas.isNotEmpty)
+                        Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(
+                                  left: 20, bottom: 10, top: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: shadowList,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                      "",
+                                      height: 50,
+                                      width: 50,
+                                      color: Colors.grey[700]),
+                                  Text(
+                                    'Puertas: '+widget.anunciosList.puertas,
+                                    style: const TextStyle(
+                                        fontFamily: 'WorkSansSemiBold',
+                                        fontSize: 12.0,
+                                        color: Colors.black54),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -195,8 +324,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                 Row(
                   children: [
                     if (widget.anunciosList.creador != null &&
-                        auth.currentUser.uid ==
-                            widget.anunciosList.creador)
+                        auth.currentUser.uid == widget.anunciosList.creador)
                       IconButton(
                           icon: Icon(Icons.edit),
                           color: Colors.white,
@@ -204,8 +332,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                     IconButton(
                         icon: Icon(Icons.share),
                         color: Colors.white,
-                        onPressed: () {}
-                        )
+                        onPressed: () {})
                   ],
                 ),
               ],
@@ -241,9 +368,13 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                             constraints: BoxConstraints(
                                 maxWidth: 300.0, minHeight: 10.0),
                             alignment: Alignment.center,
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Colors.white,
+                            child: FavoriteButton(
+                              isFavorite: widget.anunciosList.favoritos.contains(myId),
+                              iconDisabledColor: Colors.white,
+                              iconSize: 35.0,
+                              valueChanged: (_isFavorite) {
+                                favorito(widget.anunciosList.id, _isFavorite);
+                              },
                             ),
                           ),
                         ),
@@ -259,7 +390,11 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                       child: RaisedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ChatPage(idUser: widget.anunciosList.creador, idAnuncio: widget.anunciosList.id, tituloAnuncio: widget.anunciosList.titulo, urlImage: widget.anunciosList.imagenes[0]),
+                            builder: (context) => ChatPage(
+                                idUser: widget.anunciosList.creador,
+                                idAnuncio: widget.anunciosList.id,
+                                tituloAnuncio: widget.anunciosList.titulo,
+                                urlImage: widget.anunciosList.imagenes[0]),
                           ));
                         },
                         shape: RoundedRectangleBorder(

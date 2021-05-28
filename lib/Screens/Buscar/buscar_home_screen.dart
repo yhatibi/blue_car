@@ -1,6 +1,6 @@
 import 'dart:ui';
-import 'package:blue_car/Screens/List/buscar_list_view.dart';
-import 'package:blue_car/Screens/List/model/hotel_list_data.dart';
+import 'package:blue_car/Screens/Buscar/buscar_list_view.dart';
+import 'package:blue_car/Screens/Buscar/model/hotel_list_data.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
 import 'package:blue_car/models/anuncios_list.dart';
 import 'package:blue_car/widgets/snackbar.dart';

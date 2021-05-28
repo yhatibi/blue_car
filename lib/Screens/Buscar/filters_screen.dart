@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'range_slider_view.dart';
+import 'range_slider_view_km.dart';
 import 'slider_view.dart';
 import 'buscar_app_theme.dart';
 import 'model/popular_filter_list.dart';
@@ -33,6 +34,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 child: Column(
                   children: <Widget>[
                     priceBarFilter(),
+                    const Divider(
+                      height: 1,
+                    ),
+                    priceBarFilterPorPrecio(),
                     const Divider(
                       height: 1,
                     ),
@@ -217,7 +222,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           child: Text(
-            'Distance from city center',
+            'Distancia',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -247,7 +252,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           child: Text(
-            'Popular filters',
+            'Filters',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -342,7 +347,36 @@ class _FiltersScreenState extends State<FiltersScreen> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Price (for 1 night)',
+            'Rango de Kilometros',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                color: Colors.grey,
+                fontSize: MediaQuery.of(context).size.width > 360 ? 18 : 16,
+                fontWeight: FontWeight.normal),
+          ),
+        ),
+        RangeSliderViewkm(
+          values: _values,
+          onChangeRangeValues: (RangeValues values) {
+            _values = values;
+          },
+        ),
+        const SizedBox(
+          height: 8,
+        )
+      ],
+    );
+  }
+
+  Widget priceBarFilterPorPrecio() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Rango de precio',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,

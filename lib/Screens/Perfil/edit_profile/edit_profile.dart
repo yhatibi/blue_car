@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:blue_car/Screens/List/buscar_app_theme.dart';
+import 'package:blue_car/Screens/Buscar/buscar_app_theme.dart';
 import 'package:blue_car/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
