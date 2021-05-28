@@ -154,7 +154,7 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
                 .update({'imagenes': FieldValue.arrayUnion([element])
             });
           })
-      ).then((value) => CustomSnackBar(context, const Text('Cambios realizados correctamente!'),Colors.green));
+      ).then((value) => CustomSnackBar(context, const Text('Anuncio subido correctamente!'),Colors.green));
     }).catchError((onError) {
       print(onError);
     });
@@ -388,7 +388,11 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      crearAnuncio(tituloController.text, descController.text, precioController.text, anoController.text, kmController.text, cvController.text, puertasController.text).then((value) => Navigator.pop(context));
+                      if(tituloController.text.isEmpty && descController.text.isEmpty && precioController.text.isEmpty) {
+                        CustomSnackBar(context, const Text('Faltan campos obligatorios por rellenar!'),Colors.redAccent);
+                      } else {
+                        crearAnuncio(tituloController.text, descController.text, precioController.text, anoController.text, kmController.text, cvController.text, puertasController.text).then((value) => Navigator.pop(context));
+                      }
                     },
                     child: Center(
                       child: Text(

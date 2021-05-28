@@ -54,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final user = context.watch<User>();
     return Scaffold(
-
         body: AnimatedContainer(
           transform: Matrix4.translationValues(xOffset, yOffset, 0)
             ..scale(scaleFactor)
@@ -75,12 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                          width: MediaQuery.of(context).size.width * 0.10,
-                          child: Text("")),
                       GestureDetector(
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 0.65,
+                          width: MediaQuery.of(context).size.width * 0.75,
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 15),
                           decoration: BoxDecoration(

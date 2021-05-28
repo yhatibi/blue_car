@@ -50,7 +50,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(widget.anunciosList.imagenes[0]),
+                    image: widget.anunciosList.imagenes == null ? AssetImage("assets/images/no-image.png") : NetworkImage(widget.anunciosList.imagenes[0]),
                   ),
                   borderRadius: BorderRadius.only(
                     bottomLeft: const Radius.circular(40.0),
