@@ -1,9 +1,16 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:blue_car/Screens/List/buscar_app_theme.dart';
 import 'package:blue_car/Screens/CrearAnuncio/model/image_upload_model.dart';
+import 'package:blue_car/data.dart';
+import 'package:blue_car/widgets/snackbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 
@@ -15,8 +22,21 @@ class CrearAnuncioScreen extends StatefulWidget {
 }
 
 class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
+  String combustilble = 'Diesel';
+  String cambio = 'manual';
   List<Asset> images = <Asset>[];
+  List<String> urlImages = <String>[];
   String _error = 'No Error Dectected';
+  bool showPassword = false;
+
+
+  final TextEditingController tituloController = new TextEditingController();
+  final TextEditingController descController = new TextEditingController();
+  final TextEditingController precioController = new TextEditingController();
+  final TextEditingController anoController = new TextEditingController();
+  final TextEditingController kmController = new TextEditingController();
+  final TextEditingController cvController = new TextEditingController();
+  final TextEditingController puertasController = new TextEditingController();
 
   @override
   void initState() {
@@ -24,6 +44,7 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
   }
 
   Widget buildGridView() {
+
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: images.length,
@@ -64,9 +85,6 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
               ),
             ],
           );
-
-
-
         }
     );
   }
@@ -109,17 +127,62 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
     }
   }
 
-  deleteImage(int i) async {
 
+  Future uploadToFirebase(String id) async {
+    images.forEach((filePath) async {
+      var path2 =
+      await FlutterAbsolutePath.getAbsolutePath(filePath.identifier);
+      //var path = await images[i].filePath;
+      File f = await File(path2);
+      await upload(f, id);
+    });
   }
 
+  upload(filePath, String id) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref =
+    storage.ref().child("anuncios/$id/image1" + DateTime.now().toString());
+    UploadTask uploadTask = ref.putFile(filePath);
+    uploadTask.whenComplete(() async {
+      await ref.getDownloadURL().then( (value) {
+        urlImages.add(value);
+        },
+      ).then((value) =>
+          urlImages.forEach((element) {
+            print(element);
+            FirebaseFirestore.instance.collection('anuncios').doc(id)
+                .update({'imagenes': FieldValue.arrayUnion([element])
+            });
+          })
+      ).then((value) => CustomSnackBar(context, const Text('Cambios realizados correctamente!'),Colors.green));
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
 
-
-
-
+  Future crearAnuncio(titulo, desc, precio, ano, km, cv, puertas) async {
+    DocumentReference documentReference = await FirebaseFirestore.instance.collection("anuncios").doc();
+    documentReference
+      .set({
+      'id' : documentReference.id,
+      'titulo' : titulo,
+      'precio' : precio,
+      'creador' : myId,
+      'descripcion' : desc,
+      'createdAt' : DateTime.now(),
+      'favoritos' : '',
+      'combustible' : combustilble,
+      'ano' : ano,
+      'kilometros' : km,
+      'cavallos' : cv,
+      'puertas' : puertas,
+      }).then((value) => uploadToFirebase(documentReference.id));
+  }
 
   @override
   Widget build(BuildContext context) {
+
+
     return Container(
       color: BuscarAppTheme.buildLightTheme().backgroundColor,
       child: Scaffold(
@@ -199,20 +262,111 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
                       height: 1,
                     ),
                     Container(
-                      child: Text('Hello'),
+                      width: double.infinity,
+                      color: Colors.black12,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text("Información del coche:", textAlign: TextAlign.left,style: TextStyle(color: Colors.white, fontSize: 17)),
+                      ),
                     ),
                     const Divider(
                       height: 1,
                     ),
                     Container(
-                      child: Text('Hello'),
+                      child: buildTextField("Titulo *", "Seat Ibiza...", false, tituloController),
+                    ),
+                    Container(
+                      child: buildTextField("Descripción *", "El coche esta nuevo, solo tiene...", false, descController),
+                    ),
+                    Container(
+                      child: buildTextField("Precio *", "10000€", true, precioController),
+                    ),
+                    Container(
+                      child: TextField(
+                        controller: precioController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(20.0),
+                            labelText: "Precio*",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            hintText: "10000€",
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black12,
+                            )),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      color: Colors.black12,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text("Información adicional:", textAlign: TextAlign.left,style: TextStyle(color: Colors.white, fontSize: 15)),
+                      ),
                     ),
                     const Divider(
                       height: 1,
                     ),
-                    Container(
-                      child: Text('Hello'),
-                    )
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: buildTextField("Año", "000€", true, anoController),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: buildTextField("Kilometros", "200.000", true, kmController),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: buildTextField("CV", "120", true, cvController),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: DropdownButton<String>(
+                            isExpanded: true,
+                            value: combustilble,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(fontSize: 14, color: Colors.black54),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.blue,
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                combustilble = newValue;
+                              });
+                            },
+                            items: <String>['Diesel', 'Gasolina']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            child: buildTextField("Puertas", "4", true, puertasController),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -249,11 +403,11 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(24.0)),
                     highlightColor: Colors.transparent,
                     onTap: () {
-                      Navigator.pop(context);
+                      crearAnuncio(tituloController.text, descController.text, precioController.text, anoController.text, kmController.text, cvController.text, puertasController.text).then((value) => Navigator.pop(context));
                     },
                     child: Center(
                       child: Text(
-                        'Apply',
+                        'Crear Anuncio',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
@@ -269,6 +423,23 @@ class _CrearAnuncioScreenState extends State<CrearAnuncioScreen> {
       ),
     );
   }
+
+  Widget buildTextField(String labelText, String placeholder,
+      bool isPasswordTextField, TextEditingController controller) =>
+     TextField(
+      controller: controller,
+      keyboardType: isPasswordTextField== true ? TextInputType.number : TextInputType.text,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(20.0),
+          labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: placeholder,
+          hintStyle: TextStyle(
+            fontSize: 14,
+            color: Colors.black12,
+          )),
+    );
+
 
   Widget getAppBarUI() {
     return Container(

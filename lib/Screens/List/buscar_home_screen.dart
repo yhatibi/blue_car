@@ -3,6 +3,7 @@ import 'package:blue_car/Screens/List/buscar_list_view.dart';
 import 'package:blue_car/Screens/List/model/hotel_list_data.dart';
 import 'package:blue_car/Services/bluecar_api.dart';
 import 'package:blue_car/models/anuncios_list.dart';
+import 'package:blue_car/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -45,6 +46,7 @@ class _BuscarScreenState extends State<BuscarScreen>
 
 
   getTotalCars(String txt) {
+    if(filtredList.length > 0) filtredList.clear();
 
     anunciosList.forEach((element) {
       if(element.titulo.toLowerCase().contains(txt.toLowerCase())) {
@@ -53,6 +55,9 @@ class _BuscarScreenState extends State<BuscarScreen>
         print('añadido');
       }
     });
+    if(filtredList.length <= 0) {
+      CustomSnackBar(context, const Text('No se han encontrado coches acorde a tu busqueda :('),Colors.orangeAccent);
+    }
     // filtredList.forEach((element) {
     //   print(element.titulo);
     // });
@@ -78,7 +83,6 @@ class _BuscarScreenState extends State<BuscarScreen>
                     highlightColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
                     },
                     child: Column(
                       children: <Widget>[
@@ -248,9 +252,12 @@ class _BuscarScreenState extends State<BuscarScreen>
                   Radius.circular(32.0),
                 ),
                 onTap: () {
-                  if(myController.text == "") //
+                  if(myController.text == "") {
+                    filtredList.clear();
+                  } else {
+                    getTotalCars(myController.text);
+                  }
                   // print(myController.text);
-                  getTotalCars(myController.text);
                   FocusScope.of(context).requestFocus(FocusNode());
                 },
                 child: Padding(

@@ -13,7 +13,7 @@ Future<List<Anuncio>> getAnuncios() async {
   List<Anuncio> _anuncioLista = [];
 
   QuerySnapshot querySnapshot = await firestoreInstance
-      .collection("Anuncios")
+      .collection("anuncios")
       .orderBy("createdAt", descending: true)
       .get();
 
@@ -30,7 +30,7 @@ Future<List<Anuncio>> getAnuncios() async {
 
 
 Future<void> eliminarAnuncio(String idAnuncio) {
-  FirebaseFirestore.instance.collection('Anuncios')
+  FirebaseFirestore.instance.collection('anuncios')
       .doc(idAnuncio)
       .delete()
       .then((value) => print("Anuncio eliminado correctamente!"))
@@ -45,14 +45,14 @@ Stream<List<ChatsList>> getChatsList() => FirebaseFirestore.instance
     .transform(Utils.transformerFromDoc(ChatsList.fromDoc));
 
 Stream<List<AnunciosList>> getAnunciosList() => FirebaseFirestore.instance
-    .collection('Anuncios')
+    .collection('anuncios')
     .orderBy(AnunciosListField.createdAt, descending: true)
     .snapshots()
     .transform(Utils.transformer(AnunciosList.fromJson));
 
 
 Stream<List<AnunciosList>> getConcretAnunciosList(String idUser) => FirebaseFirestore.instance
-    .collection('Anuncios')
+    .collection('anuncios')
     .where('creador', isEqualTo: idUser)
     .orderBy(AnunciosListField.createdAt, descending: true)
     .snapshots()
@@ -154,7 +154,7 @@ Future addRandomUsers(List<User> users) async {
 }
 
 Future isFavorito (String idAnuncio) async {
-  int numeroDocs = await FirebaseFirestore.instance.collection('Anuncios').where('favoritos', arrayContainsAny: [myId]).snapshots().length;
+  int numeroDocs = await FirebaseFirestore.instance.collection('anuncios').where('favoritos', arrayContainsAny: [myId]).snapshots().length;
 
   if (numeroDocs < 0){
     return true;
@@ -163,11 +163,11 @@ Future isFavorito (String idAnuncio) async {
 
 Future favorito (String idAnuncio, bool taped) async {
   if (taped == true) {
-    await FirebaseFirestore.instance.collection('Anuncios').doc(idAnuncio)
+    await FirebaseFirestore.instance.collection('anuncios').doc(idAnuncio)
         .update({'favoritos': FieldValue.arrayUnion([myId])
     });
   } else {
-    await FirebaseFirestore.instance.collection('Anuncios').doc(idAnuncio)
+    await FirebaseFirestore.instance.collection('anuncios').doc(idAnuncio)
         .update({'favoritos': FieldValue.arrayRemove([myId])
     });
   }
@@ -175,7 +175,7 @@ Future favorito (String idAnuncio, bool taped) async {
 
 
 Stream<List<AnunciosList>> getFavoritosAnunciosList() => FirebaseFirestore.instance
-    .collection('Anuncios')
+    .collection('anuncios')
     .where('favoritos', arrayContainsAny: [myId])
     .orderBy(AnunciosListField.createdAt, descending: true)
     .snapshots()
