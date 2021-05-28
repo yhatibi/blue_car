@@ -20,8 +20,6 @@ Future<List<Anuncio>> getAnuncios() async {
   querySnapshot.docs.forEach((value) {
     Anuncio anuncio = Anuncio.fromMap(value.data());
     _anuncioLista.add(anuncio);
-    print('Retorno');
-    print(value.data());
   });
 
   return _anuncioLista;

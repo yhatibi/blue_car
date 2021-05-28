@@ -79,7 +79,6 @@ class ChatBodyWidget extends StatelessWidget {
                       DateTime.now().difference(chat.timeLastMessage).inHours < 24
                           ? chat.timeLastMessage.hour.toString()+':'+chat.timeLastMessage.minute.toString()
                           : chat.timeLastMessage.day.toString()+'/'+chat.timeLastMessage.month.toString(),
-
                       style: TextStyle(
                       fontWeight: FontWeight.w400, fontSize: 13),
                   )

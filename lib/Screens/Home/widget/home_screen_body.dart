@@ -52,7 +52,7 @@ class HomeScreenBodyWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(anuncio.imagenes[0]),
+                          image: anuncio.imagenes == null ? AssetImage("assets/images/no-image.png") : NetworkImage(anuncio.imagenes[0]),
                         ),
                         boxShadow: shadowList,
                         borderRadius: BorderRadius.circular(20),
@@ -227,10 +227,16 @@ class HomeScreenBodyWidget extends StatelessWidget {
                                 SizedBox(
                                   width: 2,
                                 ),
-                                Text("10h",
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        color: Colors.black26)),
+                                Text(
+                                  DateTime.now().difference(anuncio.createdAt).inHours < 24
+                                      ? DateTime.now().difference(anuncio.createdAt).inMinutes < 60
+                                        ? DateTime.now().difference(anuncio.createdAt).inMinutes.toString() + 'min'
+                                        :  DateTime.now().difference(anuncio.createdAt).inHours.toString() + 'h'
+                                      : DateTime.now().difference(anuncio.createdAt).inDays.toString()+'dias',
+                                  style: TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.black26)
+                                )
                               ],
                             ),
                           ),

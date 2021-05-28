@@ -209,6 +209,8 @@ class _BuscarScreenState extends State<BuscarScreen>
                       left: 16, right: 16, top: 4, bottom: 4),
                   child: TextField(
                     controller: myController,
+                    textInputAction: TextInputAction.none,
+
                     // onChanged: (String txt) {
                     //   getTotalCars(txt);
                     // },

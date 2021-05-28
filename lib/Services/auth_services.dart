@@ -22,7 +22,7 @@ class AuthService {
 
   Future<String> login(String email, String password) async {
     try{
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await _auth.signInWithEmailAndPassword(email: email, password: password). then((value) =>myId = _auth.currentUser.uid).then((value) => myEmail = auth.currentUser.email).then((value) => myUsername = auth.currentUser.displayName).then((value) => myUrlAvatar = auth.currentUser.photoURL);
       return "Logged In";
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -39,13 +39,8 @@ class AuthService {
 
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
-      await userCredential.user.updateProfile(displayName: name, photoURL: "https://firebasestorage.googleapis.com/v0/b/bluecar-eadb6.appspot.com/o/avatares%2Fimage12021-04-26%2019%3A18%3A01.011096?alt=media&token=270e2f4b-2b60-410a-8102-e93060829f7b");
-
-      myId = userCredential.user.uid;
-      myEmail = email;
-      myUsername = name;
-      myUrlAvatar = "https://firebasestorage.googleapis.com/v0/b/bluecar-eadb6.appspot.com/o/avatares%2Fimage12021-04-26%2019%3A18%3A01.011096?alt=media&token=270e2f4b-2b60-410a-8102-e93060829f7b";
-
+      await userCredential.user.updateProfile(displayName: name, photoURL: "https://firebasestorage.googleapis.com/v0/b/bluecar-eadb6.appspot.com/o/avatares%2Fa70e1675c7bc001f1578aa76bb0a7819.png?alt=media&token=21f7025d-ab0a-45fc-9ef9-ebce5004acc8");
+      
       print("Registrado Correctamente");
 
       return "Signed Up";

@@ -97,7 +97,7 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
                         padding: EdgeInsets.only(
                             left: 20, right: 20, top: 10, bottom: 10),
                         child: Text(
-                          "13.000 €",
+                          widget.anunciosList.precio+' €',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -152,15 +152,30 @@ class _AnuncioScreenState extends State<AnuncioScreen> {
               ),
               Expanded(
                 child: Container(
+                  width: double.infinity,
                   color: Colors.white,
                   padding: EdgeInsets.all(15),
-                  child: Text(
-                    widget.anunciosList.descripcion,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 15.0,
-                      height: 1.3,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Descripción: ",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        widget.anunciosList.descripcion,
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 15.0,
+                          height: 1.3,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               )

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../configuration.dart';
+import '../../../data.dart';
 import '../../../theme.dart';
 
 class FavoritosBodyWidget extends StatelessWidget {
@@ -57,27 +58,26 @@ class FavoritosBodyWidget extends StatelessWidget {
                         margin: EdgeInsets.all(10),
                         alignment: Alignment.center,
                         height: 120,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Image.asset(
-                            'assets/images/coche.jpg',
-                            height: double.infinity,
-                            width: double.infinity,
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
                             fit: BoxFit.cover,
+                            image: anuncio.imagenes == null ? AssetImage("assets/images/no-image.png") : NetworkImage(anuncio.imagenes[0]),
                           ),
+                          boxShadow: shadowList,
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                          margin: EdgeInsets.all(15),
-                          child: FavoriteButton(
-                            isFavorite: true,
-                            iconDisabledColor: Colors.blue,
-                            iconSize: 30.0,
-                            valueChanged: (_isFavorite) {
-                              favorito(anuncio.id, _isFavorite);
-                            },
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            child: FavoriteButton(
+                              isFavorite: anuncio.favoritos.contains(myId),
+                              iconDisabledColor: Colors.blue,
+                              iconSize: 35.0,
+                              valueChanged: (_isFavorite) {
+                                favorito(anuncio.id, _isFavorite);
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -99,6 +99,10 @@ class FavoritosBodyWidget extends StatelessWidget {
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black87),
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.clip,
+                                  maxLines: 1,
+                                  softWrap: false,
                                 ),
                                 SizedBox(
                                   height: 5,
@@ -108,50 +112,86 @@ class FavoritosBodyWidget extends StatelessWidget {
                                   child: ListView(
                                     scrollDirection: Axis.horizontal,
                                     children: [
-                                      Container(
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black12,
-                                          borderRadius: BorderRadius.circular(10),
+                                      if (anuncio.ano.isNotEmpty)
+                                        Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Text(
+                                            anuncio.ano,
+                                            style: const TextStyle(
+                                                fontSize: 13.0,
+                                                color: Colors.black54),
+                                            textAlign: TextAlign.left,
+                                          ),
                                         ),
-                                        child: Text(
-                                          "250.000km",
-                                          style: const TextStyle(
-                                              fontSize: 13.0,
-                                              color: Colors.black54),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
                                       SizedBox(width: 5),
-                                      Container(
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black12,
-                                          borderRadius: BorderRadius.circular(10),
+                                      if (anuncio.kilometros.isNotEmpty)
+                                        Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Text(
+                                            anuncio.kilometros+' km',
+                                            style: const TextStyle(
+                                                fontSize: 13.0,
+                                                color: Colors.black54),
+                                            textAlign: TextAlign.left,
+                                          ),
                                         ),
-                                        child: Text(
-                                          "2019",
-                                          style: const TextStyle(
-                                              fontSize: 13.0,
-                                              color: Colors.black54),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
                                       SizedBox(width: 5),
-                                      Container(
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black12,
-                                          borderRadius: BorderRadius.circular(10),
+                                      if (anuncio.cavallos.isNotEmpty)
+                                        Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Text(
+                                            anuncio.cavallos+' cv',
+                                            style: const TextStyle(
+                                                fontSize: 13.0,
+                                                color: Colors.black54),
+                                            textAlign: TextAlign.left,
+                                          ),
                                         ),
-                                        child: Text(
-                                          "2019",
-                                          style: const TextStyle(
-                                              fontSize: 13.0,
-                                              color: Colors.black54),
-                                          textAlign: TextAlign.left,
+                                      SizedBox(width: 5),
+                                      if (anuncio.combustible.isNotEmpty)
+                                        Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Text(
+                                            anuncio.combustible,
+                                            style: const TextStyle(
+                                                fontSize: 13.0,
+                                                color: Colors.black54),
+                                            textAlign: TextAlign.left,
+                                          ),
                                         ),
-                                      ),
+                                      SizedBox(width: 5),
+                                      if (anuncio.puertas.isNotEmpty)
+                                        Container(
+                                          padding: EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Text(
+                                            'Puertas: '+anuncio.puertas,
+                                            style: const TextStyle(
+                                                fontSize: 13.0,
+                                                color: Colors.black54),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                      SizedBox(width: 5),
                                     ],
                                   ),
                                 ),
@@ -172,9 +212,16 @@ class FavoritosBodyWidget extends StatelessWidget {
                                   SizedBox(
                                     width: 2,
                                   ),
-                                  Text("10h",
+                                  Text(
+                                      DateTime.now().difference(anuncio.createdAt).inHours < 24
+                                          ? DateTime.now().difference(anuncio.createdAt).inMinutes < 60
+                                          ? DateTime.now().difference(anuncio.createdAt).inMinutes.toString() + 'min'
+                                          :  DateTime.now().difference(anuncio.createdAt).inHours.toString() + 'h'
+                                          : DateTime.now().difference(anuncio.createdAt).inDays.toString()+'dias',
                                       style: TextStyle(
-                                          fontSize: 11, color: Colors.black26)),
+                                          fontSize: 11,
+                                          color: Colors.black26)
+                                  ),
                                 ],
                               ),
                             ),
@@ -199,10 +246,11 @@ class FavoritosBodyWidget extends StatelessWidget {
                               ),
                               padding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 10),
                               child: Text(
-                                "13.000 EUR",
+                                anuncio.precio+'€',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Colors.white,
+                                fontSize: 15),
                               ),
                             ),
                           ),

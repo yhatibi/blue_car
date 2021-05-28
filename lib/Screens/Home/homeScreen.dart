@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.10,
                           child: CircleAvatar(
-                              backgroundImage: NetworkImage(myUrlAvatar)),
+                              backgroundImage: myUrlAvatar != null ? NetworkImage(myUrlAvatar) : NetworkImage("https://firebasestorage.googleapis.com/v0/b/bluecar-eadb6.appspot.com/o/avatares%2Fa70e1675c7bc001f1578aa76bb0a7819.png?alt=media&token=21f7025d-ab0a-45fc-9ef9-ebce5004acc8")),
                         ),
                         // Handle your callback
                       )
@@ -182,18 +182,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                         blurRadius: 8.0),
                                   ],
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                children: [
-                                  Image.asset(categories[index]['iconPath'],
-                                      height: 50, width: 50),
-                                  Text(
-                                    categories[index]['name'],
-                                    style: const TextStyle(
-                                        fontFamily: 'WorkSansSemiBold',
-                                        fontSize: 12.0,
-                                        color: Colors.black54),
-                                  )
-                                ],
+                              child: GestureDetector(
+                                child: Column(
+                                  children: [
+                                    Image.asset(categories[index]['iconPath'],
+                                        height: 50, width: 50),
+                                    Text(
+                                      categories[index]['name'],
+                                      style: const TextStyle(
+                                          fontFamily: 'WorkSansSemiBold',
+                                          fontSize: 12.0,
+                                          color: Colors.black54),
+                                    )
+                                  ],
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return BuscarScreen();
+                                      }));
+                                },
                               ),
                             ),
                           ],
@@ -251,7 +259,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (anunciosList.isEmpty) {
                             return buildText('No Anuncios encontrados');
                           } else
-                            print('ANUNCIOS:');
                           return Container(
                             height: 500,
                             width: MediaQuery.of(context).size.width * 1,
