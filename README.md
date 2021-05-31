@@ -2,7 +2,7 @@
 
 App en Flutter con bd Firebase, compra y venta de coches.
 
-![Test Image 1](iamges/cover.png)
+![](images/cover.png)
 
 
 ## Instalar
