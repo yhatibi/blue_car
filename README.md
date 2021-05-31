@@ -1,10 +1,14 @@
-# blue_car
+# BlueCar
 
-A new Flutter application.
+App en Flutter con bd Firebase, compra y venta de coches.
 
-## Getting Started
+![Test Image 1](iamges/cover.png)
 
-This project is a starting point for a Flutter application.
+
+## Instalar
+
+Para Instalarlo ejecutar:
+    flutter clean && flutter pub get && flutter pub run flutter_native_splash:create
 
 A few resources to get you started if this is your first Flutter project:
 
